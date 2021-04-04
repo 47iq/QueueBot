@@ -10,7 +10,7 @@ public interface ObjectFactory {
 
     WaitingPoolDB getWaitingPool(Connection connection, ObjectFactory factory) throws SQLException;
 
-    QueueDBManager getQueueData(Connection connection, UsersDB users, TablesDBManager tablesDBManager, AlertModule alertModule);
+    QueueDBManager getQueueData(Connection connection, UsersDB users, TablesDBManager tablesDBManager);
 
     UserData getUsersData(String name, String surname, String role, int studyGroup, int subGroup, String subject, long chat_id);
 

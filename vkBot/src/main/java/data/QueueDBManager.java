@@ -1,5 +1,6 @@
 package data;
 
+import assist.AlertModule;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -17,4 +18,6 @@ public interface QueueDBManager {
     void create(Subject subject, int group, int subgroup) throws SQLException;
     void clear(Subject subject, int group, int subgroup) throws SQLException;
     List<String> getQueue(Subject subject, String username) throws SQLException;
+    void remove(String username, Subject forName) throws SQLException;
+    void setAlertModule(AlertModule alertModule);
 }

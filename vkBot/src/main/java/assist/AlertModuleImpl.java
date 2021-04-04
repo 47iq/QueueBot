@@ -43,20 +43,24 @@ public class AlertModuleImpl implements AlertModule {
 
     @Override
     public void alertQueueUser(String username, Subject subject, TelegramLongPollingBot bot) throws TelegramApiException, UnsupportedEncodingException {
+        if(username == null)
+            return;
         SendMessage message = new SendMessage();
         String text = "Ваша очередь на сдачу " + subject.toString() + ". Удачи!";
         text = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(text.getBytes("windows-1251"))).toString();
-        message.setChatId(waitingPoolDB.getChatId(username));
+        message.setChatId(String.valueOf(usersDB.getChatId(username)));
         message.setText(text);
         bot.execute(message);
     }
 
     @Override
     public void alertSkippedUser(String username, Subject subject, TelegramLongPollingBot bot) throws TelegramApiException, UnsupportedEncodingException {
+        if(username == null)
+            return;
         SendMessage message = new SendMessage();
         String text = "Вас скипнули в очереди на сдачу " + subject.toString() + ":(";
         text = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(text.getBytes("windows-1251"))).toString();
-        message.setChatId(waitingPoolDB.getChatId(username));
+        message.setChatId(String.valueOf(usersDB.getChatId(username)));
         message.setText(text);
         bot.execute(message);
     }
@@ -66,7 +70,7 @@ public class AlertModuleImpl implements AlertModule {
         SendMessage message = new SendMessage();
         String text = "К сожалению ваша заявка отклонена. Проверьте данные и попробуйте еще раз.";
         text = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(text.getBytes("windows-1251"))).toString();
-        message.setChatId(waitingPoolDB.getChatId(username));
+        message.setChatId(String.valueOf(usersDB.getChatId(username)));
         message.setText(text);
         bot.execute(message);
     }

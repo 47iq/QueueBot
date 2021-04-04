@@ -8,6 +8,7 @@ public class HelpCommand implements Command{
                 "Пример 2: /register Петр Петров teacher 3110 1 OPD\n\n";
         message += "Команды для студентов:\n";
         message += "/queue - зарегистрироваться в очередь. \nСинтаксис: /queue ПРЕДМЕТ. Пример: /queue OPD\n";
+        message += "/leave - покинуть очередь. \nСинтаксис: /leave ПРЕДМЕТ. Пример: /leave OPD\n";
         message += "/getqueue - получить текущее состояние очереди. \nСинтаксис /getqueue ПРЕДМЕТ. Пример: /getqueue OPD\n\n";
         message += "Команды для преподавателей:\n";
         message += "/begin - начать прием лабораторной.\n";

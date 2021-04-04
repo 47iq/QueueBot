@@ -17,8 +17,8 @@ public class ObjectFactoryImpl implements ObjectFactory {
     }
 
     @Override
-    public QueueDBManager getQueueData(Connection connection, UsersDB users, TablesDBManager tablesDBManager, AlertModule alertModule) {
-        return new QueueDBManagerImpl(connection, users, tablesDBManager, alertModule);
+    public QueueDBManager getQueueData(Connection connection, UsersDB users, TablesDBManager tablesDBManager) {
+        return new QueueDBManagerImpl(connection, users, tablesDBManager);
     }
 
     @Override

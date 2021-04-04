@@ -1,7 +1,6 @@
 package commands;
 
 import assist.AlertModule;
-import data.UserData;
 import data.UsersDB;
 import data.WaitingPoolDB;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;

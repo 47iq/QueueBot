@@ -18,7 +18,7 @@ public class UserDataImpl implements UserData{
         if(subject == null)
             this.subject = null;
         else
-            this.subject = Subject.valueOf(subject);
+            this.subject = Subject.forName(subject);
         this.chat_id = chat_id;
     }
 

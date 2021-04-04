@@ -1,12 +1,8 @@
 package tg_processor;
 
 import commands.*;
-import data.QueueDBManager;
 import data.UsersDB;
-import org.eclipse.jetty.server.Authentication;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.nio.ByteBuffer;
@@ -57,9 +53,12 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                     case "/start", "/help": {
                         return ((HelpCommand)command).execute();
                     }
-                    case "/queue": {
+                    case "/queue", "/leave": {
                         if(checkAccess(username))
-                            return ((QueueCommand)command).execute(username, inText[1]);
+                            if(!usersDB.isTeacher(username))
+                                return ((QueueCommand)command).execute(username, inText[1]);
+                            else
+                                return "Вы же препод... Зачем вам записываться в очередь...";
                         else
                             return "Вы не зарегистрированы. Возможно, вы еще находитесь в пуле ожидания.";
                     }
@@ -74,7 +73,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                         else
                             return "Вы не зарегистрированы. Возможно, вы еще находитесь в пуле ожидания.";
                     }
-                    case "/accept": {
+                    case "/accept", "/reject": {
                         if(usersDB.isAdmin(username))
                             return ((AdminCommand)command).execute(inText[1], bot);
                         else

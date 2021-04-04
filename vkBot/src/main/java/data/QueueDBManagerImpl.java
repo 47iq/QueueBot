@@ -17,12 +17,15 @@ public class QueueDBManagerImpl implements QueueDBManager{
 
     private final TablesDBManager tablesDBManager;
 
-    private final AlertModule alertModule;
+    private AlertModule alertModule;
 
-    public QueueDBManagerImpl(Connection connection, UsersDB usersDB, TablesDBManager tablesDBManager, AlertModule alertModule) {
+    public QueueDBManagerImpl(Connection connection, UsersDB usersDB, TablesDBManager tablesDBManager) {
         this.connection = connection;
         this.usersDB = usersDB;
         this.tablesDBManager = tablesDBManager;
+    }
+
+    public void setAlertModule(AlertModule alertModule) {
         this.alertModule = alertModule;
     }
 
@@ -44,10 +47,12 @@ public class QueueDBManagerImpl implements QueueDBManager{
     @Override
     public String nextStudent(String username, TelegramLongPollingBot bot) throws SQLException, UnsupportedEncodingException, TelegramApiException {
         String tableName = getTableName(username);
-        String userNick = getNextUsername(username);
+        String userNick = getNextUsername(tableName);
         remove(tableName, userNick);
-        userNick = getNextUsername(username);
+        userNick = getNextUsername(tableName);
         alertModule.alertQueueUser(userNick, usersDB.getSubject(username), bot);
+        if(userNick == null)
+            return null;
         return usersDB.getName(userNick);
     }
 
@@ -55,24 +60,29 @@ public class QueueDBManagerImpl implements QueueDBManager{
     public String skipStudent(String username, TelegramLongPollingBot bot) throws SQLException, UnsupportedEncodingException, TelegramApiException {
         Subject subject = usersDB.getSubject(username);
         String tableName = getTableName(username);
-        String userNick = getNextUsername(username);
+        String userNick = getNextUsername(tableName);
         remove(tableName, userNick);
         alertModule.alertSkippedUser(userNick, usersDB.getSubject(username), bot);
         add(userNick, subject);
-        userNick = getNextUsername(username);
+        userNick = getNextUsername(tableName);
+        if(userNick == null)
+            return null;
         return usersDB.getName(userNick);
     }
 
     @Override
     public String startQueue(String username) throws SQLException {
-        String userNick = getNextUsername(username);
+        String tableName = getTableName(username);
+        String userNick = getNextUsername(tableName);
+        if(userNick == null)
+            return null;
         return usersDB.getName(userNick);
     }
 
     @Override
     public void finishQueue(String username) throws SQLException {
         String tableName = getTableName(username);
-        String userNick = getNextUsername(username);
+        String userNick = getNextUsername(tableName);
         remove(tableName, userNick);
     }
 
@@ -113,10 +123,17 @@ public class QueueDBManagerImpl implements QueueDBManager{
         return list;
     }
 
+    @Override
+    public void remove(String username, Subject subject) throws SQLException {
+        String tableName = getTableName(username, subject);
+        remove(tableName, username);
+    }
+
     private String getNextUsername(String tableName) throws SQLException {
-        String sql = "SELECT username FROM " + tableName + " WHERE priority = (SELECT MIN(priority) FROM " + tableName + ")";
-        PreparedStatement preparedStatement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-        ResultSet resultSet = preparedStatement.executeQuery();
+        String sql = "SELECT * FROM " + tableName + " WHERE priority = (SELECT MIN(priority) FROM " + tableName + ")";
+        Statement statement = connection.createStatement();
+        System.out.println(sql);
+        ResultSet resultSet = statement.executeQuery(sql);
         String userNick = null;
         while (resultSet.next()) {
             userNick = resultSet.getString(1);
