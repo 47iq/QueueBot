@@ -50,16 +50,27 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                     }
                     case "/finish", "/begin", "/skip", "/next": {
                         if(usersDB.isTeacher(username))
-                            return ((TeacherCommand)command).execute(username);
+                            return ((TeacherCommand)command).execute(username, bot);
                         else
                             return "Ой.. Кажется вы не преподаватель.";
                     }
                     case "/start", "/help": {
                         return ((HelpCommand)command).execute();
                     }
-                    case "/queue", "/getqueue": {
+                    case "/queue": {
                         if(checkAccess(username))
                             return ((QueueCommand)command).execute(username, inText[1]);
+                        else
+                            return "Вы не зарегистрированы. Возможно, вы еще находитесь в пуле ожидания.";
+                    }
+                    case "/getqueue": {
+                        if(checkAccess(username))
+                            if (usersDB.isTeacher(username))
+                                return "К сожалению преподавателям здесь нельзя смотреть на полную очередь. Пользуйтесь, " +
+                                        "пожалуйста, командами /begin, /next, /skip, /finish," +
+                                        " чтобы студенты могли следить за продвижением очереди.";
+                            else
+                                return ((QueueCommand)command).execute(username, inText[1]);
                         else
                             return "Вы не зарегистрированы. Возможно, вы еще находитесь в пуле ожидания.";
                     }
@@ -67,10 +78,10 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                         if(usersDB.isAdmin(username))
                             return ((AdminCommand)command).execute(inText[1], bot);
                         else
-                            return "Это админская команда, сорри.";
+                            return "Это админская команда.";
                     }
                 }
-            return "Я не умею на такое отвечать:(";
+            return "Я не умею на такое отвечать:( Посмотрите справку по командам: /help.";
         } catch (Exception e) {
             e.printStackTrace();
             return  "Ой.. Что-то пошло не так.";

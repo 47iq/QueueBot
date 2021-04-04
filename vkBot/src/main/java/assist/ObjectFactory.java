@@ -1,9 +1,6 @@
 package assist;
 
-import data.QueueDBManager;
-import data.UserData;
-import data.UsersDB;
-import data.WaitingPoolDB;
+import data.*;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -13,7 +10,9 @@ public interface ObjectFactory {
 
     WaitingPoolDB getWaitingPool(Connection connection, ObjectFactory factory) throws SQLException;
 
-    QueueDBManager getQueueData(Connection connection, UsersDB users);
+    QueueDBManager getQueueData(Connection connection, UsersDB users, TablesDBManager tablesDBManager, AlertModule alertModule);
 
     UserData getUsersData(String name, String surname, String role, int studyGroup, int subGroup, String subject, long chat_id);
+
+    TablesDBManager getTablesDB(Connection connection, ObjectFactory factory) throws SQLException;
 }

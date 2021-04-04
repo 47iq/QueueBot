@@ -1,15 +1,15 @@
 package commands;
 
-import assist.RegistrationAlertModule;
+import assist.AlertModule;
 import data.WaitingPoolDB;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 public class RegisterCommand implements AuthCommand{
 
     WaitingPoolDB usersDB;
-    RegistrationAlertModule alertModule;
+    AlertModule alertModule;
 
-    public RegisterCommand(WaitingPoolDB db, RegistrationAlertModule alertModule) {
+    public RegisterCommand(WaitingPoolDB db, AlertModule alertModule) {
         this.usersDB = db;
         this.alertModule = alertModule;
     }
@@ -18,7 +18,7 @@ public class RegisterCommand implements AuthCommand{
     public String execute(TelegramLongPollingBot bot, String username, String name, String surname, String role, int group, int subGroup, String subject, long chat_id) {
         try {
             usersDB.register(username, name, surname, role, group, subGroup, subject, chat_id);
-            alertModule.alertAdmin(username, bot);
+            alertModule.alertRegisterAdmin(username, bot);
             return "Запрос передан на модерацию.";
         } catch (Exception e) {
             e.printStackTrace();

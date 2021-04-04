@@ -70,6 +70,7 @@ public class UsersDBImpl implements UsersDB{
         else
             preparedStatement.setNull(7, Types.VARCHAR);
         preparedStatement.setLong(8, chat_id);
+        preparedStatement.execute();
         addToCache(username, name, surname, role, studyGroup, subGroup, subject, chat_id);
     }
 

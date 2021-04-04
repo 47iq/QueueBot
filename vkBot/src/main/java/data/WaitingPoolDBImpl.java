@@ -19,6 +19,9 @@ public class WaitingPoolDBImpl implements WaitingPoolDB{
         this.factory = factory;
         create();
         init();
+        for (var key: users.keySet()) {
+            System.out.println(users.get(key));
+        }
     }
 
     private void init() throws SQLException {
@@ -78,6 +81,7 @@ public class WaitingPoolDBImpl implements WaitingPoolDB{
 
     private void addToCache(String username, String name, String surname, String role, int studyGroup,
                             int subGroup, String subject, long chat_id) {
+        //System.out.println(factory.getUsersData(name, surname, role, studyGroup, subGroup, subject, chat_id));
         users.put(username, factory.getUsersData(name, surname, role, studyGroup, subGroup, subject, chat_id));
     }
 

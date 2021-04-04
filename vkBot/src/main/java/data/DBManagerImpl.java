@@ -1,5 +1,6 @@
 package data;
 
+import assist.AlertModule;
 import assist.ObjectFactory;
 
 import java.sql.Connection;
@@ -13,6 +14,8 @@ public class DBManagerImpl implements DBManager{
 
     private QueueDBManager queueDBManager;
 
+    private TablesDBManager tablesDBManager;
+
     private Connection connection;
 
     private final ObjectFactory factory;
@@ -22,12 +25,13 @@ public class DBManagerImpl implements DBManager{
     }
 
     @Override
-    public void start(String url, String user, String password) {
+    public void start(String url, String user, String password, AlertModule alertModule) {
         try {
             connection = DriverManager.getConnection(url, user, password);
+            tablesDBManager = factory.getTablesDB(connection, factory);
             waitingPoolDB = factory.getWaitingPool(connection, factory);
             usersDB = factory.getUsersDB(connection, factory);
-            queueDBManager = factory.getQueueData(connection, usersDB);
+            queueDBManager = factory.getQueueData(connection, usersDB, tablesDBManager, alertModule);
         } catch (Exception e) {
             e.printStackTrace();
             System.exit(1);

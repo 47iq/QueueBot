@@ -18,13 +18,12 @@ public class QueueRegCommand implements QueueCommand{
     public String execute(String username, String subject) {
         try {
             manager.add(username, Subject.forName(subject));
-            return "Вы успешно зарегистрировались в очередь.";
+            return "Р’С‹ СѓСЃРїРµС€РЅРѕ Р·Р°РїРёСЃР°Р»РёСЃСЊ РІ РѕС‡РµСЂРµРґСЊ. РџРѕСЃРјРѕС‚СЂРµС‚СЊ РµРµ РјРѕР¶РЅРѕ РєРѕРјР°РЅРґРѕР№ /getqueue";
         } catch (SQLException e) {
-            e.printStackTrace();
-            return "Что-то пошло сильно не так. Напишите @true47iq пж.";
+            return "РћР№. Р§С‚Рѕ-С‚Рѕ РїРѕС€Р»Рѕ РЅРµ С‚Р°Рє. Р’РѕР·РјРѕР¶РЅРѕ, РІС‹ СѓР¶Рµ Р·Р°РїРёСЃР°РЅС‹ РІ РѕС‡РµСЂРµРґСЊ. Р•СЃР»Рё РЅРµС‚, С‚Рѕ РЅР°РїРёС€РёС‚Рµ РїР¶ @true_47iq";
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            return "Проверьте, является ли название предмета одним из {OPD, Programming}.";
+            return "Р’Р°С€РµРіРѕ РїСЂРµРґРјРµС‚Р° РЅРµС‚ РІ СЃРїРёСЃРєРµ. РћРЅ РґРѕР»Р¶РµРЅ Р±С‹С‚СЊ РѕРґРЅРёРј РёР·: {OPD, Programming}.";
         }
     }
 }

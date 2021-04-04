@@ -49,4 +49,17 @@ public class UserDataImpl implements UserData{
     public long getChat_id() {
         return chat_id;
     }
+
+    @Override
+    public String toString() {
+        return "UserDataImpl{" +
+                "role='" + role + '\'' +
+                ", group=" + group +
+                ", subGroup=" + subGroup +
+                ", name='" + name + '\'' +
+                ", surname='" + surname + '\'' +
+                ", subject=" + subject +
+                ", chat_id=" + chat_id +
+                '}';
+    }
 }
