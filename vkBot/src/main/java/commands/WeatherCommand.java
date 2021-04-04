@@ -1,18 +1,26 @@
 package commands;
 
+import assist.WeatherModule;
 import org.json.*;
 
 import java.io.IOException;
 import java.net.URLEncoder;
+import java.util.ResourceBundle;
 
 public class WeatherCommand implements Command{
 
-    public WeatherCommand() {
+    private WeatherModule weatherModule;
 
+    public WeatherCommand(WeatherModule weatherModule) {
+        this.weatherModule = weatherModule;
     }
 
-    @Override
     public String execute(String argument) {
-        return null;
+        try {
+            return weatherModule.getWeather();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return "Ой.. Что-то пошло не так.";
+        }
     }
 }

@@ -1,4 +1,4 @@
-package processor;
+package vk_processor;
 
 import com.petersamokhin.bots.sdk.clients.Group;
 import com.petersamokhin.bots.sdk.objects.Message;
@@ -21,18 +21,19 @@ public class MessageProcessorImpl implements MessageProcessor{
     public Message getMessage(Message message) {
         String[] messageText = message.getText().trim().split("\\s+");
         String argument = (messageText.length == 1 ? "" : messageText[1]);
-        String answer = getCommand(messageText[0]).execute(argument);
+        /*String answer = getCommand(messageText[0]).execute(argument);
         new Message()
                     .from(group)
                     .to(message.authorId())
                     .text(answer);
-        return message;
+        return message;*/
+        return null;
     }
 
     private Command getCommand(String commandStr) {
         Command command = commandMap.get(commandStr);
         if(command == null)
-            throw new RuntimeException("ERR_UNK_COMMAND");
+            throw new RuntimeException("Ой... Не знаю такую команду.");
         else
             return command;
     }

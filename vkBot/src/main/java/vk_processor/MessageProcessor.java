@@ -1,4 +1,4 @@
-package processor;
+package vk_processor;
 
 import com.petersamokhin.bots.sdk.objects.Message;
 
