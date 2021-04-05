@@ -1,7 +1,9 @@
 /*package assist.tasks;
 
+import assist.AlertModule;
 import data.UserData;
 import data.WaitingPoolDB;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 public class SurnameTask implements Task{
 
@@ -12,7 +14,7 @@ public class SurnameTask implements Task{
     }
 
     @Override
-    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB) {
+    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule, TelegramLongPollingBot bot) {
         return "Введите, пожалуйста вашу фамилию:";
     }
 

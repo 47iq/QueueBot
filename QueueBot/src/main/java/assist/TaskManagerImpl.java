@@ -2,6 +2,8 @@ package assist;
 
 import assist.tasks.Task;
 import data.WaitingPoolDB;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.util.Map;
 
@@ -11,8 +13,11 @@ public class TaskManagerImpl implements TaskManager{
 
     private final WaitingPoolDB waitingPoolDB;
 
-    public TaskManagerImpl(WaitingPoolDB waitingPoolDB) {
+    private final AlertModule alertModule;
+
+    public TaskManagerImpl(WaitingPoolDB waitingPoolDB, AlertModule alertModule) {
         this.waitingPoolDB = waitingPoolDB;
+        this.alertModule = alertModule;
     }
 
     @Override
@@ -26,10 +31,12 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
-    public String executeNextTask(String username, String arg) {
+    public SendMessage executeNextTask(String username, String arg, TelegramLongPollingBot bot) {
         Task task = taskMap.get(username);
-        String ans = task.execute(username, arg, waitingPoolDB);
+        String ans = task.execute(username, arg, waitingPoolDB, alertModule, bot);
+        SendMessage message = new SendMessage();
+        message.setText(ans);
         taskMap.put(username, task.next());
-        return ans;
+        return message;
     }
 }

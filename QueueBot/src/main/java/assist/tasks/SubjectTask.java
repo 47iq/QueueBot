@@ -1,7 +1,9 @@
 package assist.tasks;
 
+import assist.AlertModule;
 import data.UserData;
 import data.WaitingPoolDB;
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 public class SubjectTask implements Task{
 
@@ -12,12 +14,13 @@ public class SubjectTask implements Task{
     }
 
     @Override
-    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB) {
-        return null;
+    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule, TelegramLongPollingBot bot) {
+        userData.setSubGroup(Integer.parseInt(argument));
+        return "Введите, пожалуйста название предмета, который вы ведёте(на английском языке):";
     }
 
     @Override
     public Task next() {
-        return null;
+        return new SubmitTask(userData);
     }
 }
