@@ -15,4 +15,18 @@ public interface UserData {
     Subject getSubject();
 
     long getChat_id();
+
+    void setName(String name);
+
+    void setSurname(String surname);
+
+    void setGroup(int group);
+
+    void setSubGroup(int subGroup);
+
+    void setSubject(Subject subject);
+
+    void setChat_id(long chat_id);
+
+    void setRole(String role);
 }
