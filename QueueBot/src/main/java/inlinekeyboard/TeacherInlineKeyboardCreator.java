@@ -1,12 +1,13 @@
 package inlinekeyboard;
 
+import assist.UTF8Converter;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherInlineKeyboardCreator implements InlineKeyboardCreator{
+public class TeacherInlineKeyboardCreator implements InlineKeyboardCreator, UTF8Converter {
 
     @Override
     public InlineKeyboardMarkup createInlineKeyBoardMarkUp() {
@@ -15,11 +16,11 @@ public class TeacherInlineKeyboardCreator implements InlineKeyboardCreator{
         InlineKeyboardButton inlineKeyboardButton2 = new InlineKeyboardButton();
         InlineKeyboardButton inlineKeyboardButton3 = new InlineKeyboardButton();
 
-        inlineKeyboardButton1.setText("⏭Next student");
+        inlineKeyboardButton1.setText(convert("Следующий студент"));
         inlineKeyboardButton1.setCallbackData("/next");
-        inlineKeyboardButton2.setText("Skip student");
+        inlineKeyboardButton2.setText(convert("Отправить в конец"));
         inlineKeyboardButton2.setCallbackData("/skip");
-        inlineKeyboardButton3.setText("Finish");
+        inlineKeyboardButton3.setText(convert("Завершить прием"));
         inlineKeyboardButton3.setCallbackData("/finish");
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
