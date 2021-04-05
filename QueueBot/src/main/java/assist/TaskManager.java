@@ -1,7 +1,10 @@
 package assist;
 
+import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+
 public interface TaskManager {
     boolean hasRunningTasks(String username);
     void clearTasks(String username);
-    String executeNextTask(String username, String arg);
+    SendMessage executeNextTask(String username, String arg, TelegramLongPollingBot bot);
 }
