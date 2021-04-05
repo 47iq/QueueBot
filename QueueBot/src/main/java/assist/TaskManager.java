@@ -7,4 +7,5 @@ public interface TaskManager {
     boolean hasRunningTasks(String username);
     void clearTasks(String username);
     SendMessage executeNextTask(String username, String arg, TelegramLongPollingBot bot);
+    SendMessage startRegister(String username);
 }

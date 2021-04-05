@@ -4,10 +4,14 @@ commands/AdminCommand.java
  commands.AdminCommand
 data/UserDataImpl.java
  data.UserDataImpl
+tg_processor/TGMessageProcessor.java
+ tg_processor.TGMessageProcessor
 commands/QueueCommand.java
  commands.QueueCommand
 data/TablesDBManager.java
  data.TablesDBManager
+tg_processor/TGMessageProcessorImpl.java
+ tg_processor.TGMessageProcessorImpl
 data/Subject.java
  data.Subject
  data.Subject$1
@@ -16,6 +20,8 @@ data/UserData.java
  data.UserData
 commands/NextCommand.java
  commands.NextCommand
+assist/ObjectFactory.java
+ assist.ObjectFactory
 commands/TeacherCommand.java
  commands.TeacherCommand
 commands/FinishCommand.java
@@ -24,8 +30,8 @@ commands/RegisterCommand.java
  commands.RegisterCommand
 commands/StartCommand.java
  commands.StartCommand
-Main.java
- Main
+data/QueueDBManagerImpl.java
+ data.QueueDBManagerImpl
 commands/HelpCommand.java
  commands.HelpCommand
 commands/QueueLeaveCommand.java
@@ -36,16 +42,20 @@ data/UsersDB.java
  data.UsersDB
 data/QueueDBManager.java
  data.QueueDBManager
+data/TablesDBManagerImpl.java
+ data.TablesDBManagerImpl
 data/UsersDBImpl.java
  data.UsersDBImpl
+assist/TaskManager.java
+ assist.TaskManager
 commands/AuthCommand.java
  commands.AuthCommand
 commands/QueueGetCommand.java
  commands.QueueGetCommand
 commands/QueueRegCommand.java
  commands.QueueRegCommand
-tg_processor/TGMessageProcessorImpl.java
- tg_processor.TGMessageProcessorImpl
+commands/RejectCommand.java
+ commands.RejectCommand
 commands/SkipCommand.java
  commands.SkipCommand
 assist/ObjectFactoryImpl.java
@@ -54,6 +64,8 @@ assist/AlertModuleImpl.java
  assist.AlertModuleImpl
 data/DBManagerImpl.java
  data.DBManagerImpl
+assist/tasks/Task.java
+ assist.tasks.Task
 data/WaitingPoolDBImpl.java
  data.WaitingPoolDBImpl
 data/WaitingPoolDB.java
@@ -64,13 +76,21 @@ commands/Command.java
  commands.Command
 data/DBManager.java
  data.DBManager
-assist/ObjectFactory.java
- assist.ObjectFactory
-commands/RejectCommand.java
- commands.RejectCommand
-data/TablesDBManagerImpl.java
- data.TablesDBManagerImpl
-tg_processor/TGMessageProcessor.java
- tg_processor.TGMessageProcessor
-data/QueueDBManagerImpl.java
- data.QueueDBManagerImpl
+Main.java
+ Main
+assist/tasks/SubmitTask.java
+ assist.tasks.SubmitTask
+assist/tasks/NameTask.java
+ assist.tasks.NameTask
+assist/tasks/SubGroupTask.java
+ assist.tasks.SubGroupTask
+assist/TaskManagerImpl.java
+ assist.TaskManagerImpl
+assist/tasks/SurnameTask.java
+ assist.tasks.SurnameTask
+assist/tasks/RoleTask.java
+ assist.tasks.RoleTask
+assist/tasks/SubjectTask.java
+ assist.tasks.SubjectTask
+assist/tasks/GroupTask.java
+ assist.tasks.GroupTask

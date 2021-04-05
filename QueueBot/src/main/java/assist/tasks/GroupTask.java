@@ -23,4 +23,9 @@ public class GroupTask implements Task{
     public Task next() {
         return new SubGroupTask(userData);
     }
+
+    @Override
+    public String toString() {
+        return "group";
+    }
 }

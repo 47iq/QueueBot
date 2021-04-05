@@ -26,4 +26,9 @@ public class SubGroupTask implements Task{
         else
             return new SubmitTask(userData);
     }
+
+    @Override
+    public String toString() {
+        return "subgroup";
+    }
 }

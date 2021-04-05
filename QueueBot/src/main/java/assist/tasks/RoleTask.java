@@ -23,4 +23,9 @@ public class RoleTask implements Task{
     public Task next() {
         return new GroupTask(userData);
     }
+
+    @Override
+    public String toString() {
+        return "role";
+    }
 }

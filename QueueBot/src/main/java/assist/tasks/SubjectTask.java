@@ -23,4 +23,9 @@ public class SubjectTask implements Task{
     public Task next() {
         return new SubmitTask(userData);
     }
+
+    @Override
+    public String toString() {
+        return "subject";
+    }
 }

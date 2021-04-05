@@ -22,7 +22,7 @@ public class SubmitTask implements Task{
             userData.setSubGroup(Integer.parseInt(argument));
         try {
             waitingPoolDB.register(username, userData.getName(), userData.getSurname(), userData.getRole(),
-                    userData.getGroup(), userData.getSubGroup(), userData.getSubject().toString(), userData.getChat_id());
+                    userData.getGroup(), userData.getSubGroup(), userData.getRole().equals("teacher") ? userData.getSubject().toString() : null , userData.getChat_id());
             alertModule.alertRegisterAdmin(username, bot);
             return "Запрос передан на модерацию.";
         } catch (Exception e) {
@@ -34,5 +34,10 @@ public class SubmitTask implements Task{
     @Override
     public Task next() {
         return null;
+    }
+
+    @Override
+    public String toString() {
+        return "submit";
     }
 }

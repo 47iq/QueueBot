@@ -22,6 +22,9 @@ public class UserDataImpl implements UserData{
         this.chat_id = chat_id;
     }
 
+    public UserDataImpl() {
+    }
+
     public String getRole() {
         return role;
     }

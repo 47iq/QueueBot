@@ -1,5 +1,6 @@
 package tg_processor;
 
+import assist.TaskManager;
 import commands.*;
 import data.UsersDB;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -17,9 +18,12 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
 
     private final UsersDB usersDB;
 
-    public TGMessageProcessorImpl(Map<String, Command> commands, UsersDB usersDB) {
+    private final TaskManager taskManager;
+
+    public TGMessageProcessorImpl(Map<String, Command> commands, UsersDB usersDB, TaskManager taskManager) {
         this.commandMap = commands;
         this.usersDB = usersDB;
+        this.taskManager = taskManager;
     }
 
     @Override
@@ -47,29 +51,24 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
             Command command = commandMap.get(inText[0]);
             if(command != null)
                 switch (inText[0]) {
-                    case "/register": {
-                        if(inText.length == 6)
-                            return ((AuthCommand)command).execute(bot, username, inText[1], inText[2], inText[3],
-                                    Integer.parseInt(inText[4]), Integer.parseInt(inText[5]), null, chat_id);
-                        else
-                            return ((AuthCommand)command).execute(bot,username, inText[1], inText[2], inText[3],
-                                Integer.parseInt(inText[4]), Integer.parseInt(inText[5]), inText[6], chat_id);
+                    case "/register" -> {
+                        return ((AuthCommand) command).execute(username, taskManager);
                     }
-                    case "/finish", "/begin", "/skip", "/next": {
-                        if(usersDB.isTeacher(username))
-                            return ((TeacherCommand)command).execute(username, bot);
+                    case "/finish", "/begin", "/skip", "/next" -> {
+                        if (usersDB.isTeacher(username))
+                            return ((TeacherCommand) command).execute(username, bot);
                         else {
                             sendMessage.setText("Ой.. Кажется вы не преподаватель.");
                             return sendMessage;
                         }
                     }
-                    case "/start", "/help": {
-                        return ((HelpCommand)command).execute();
+                    case "/start", "/help" -> {
+                        return ((HelpCommand) command).execute();
                     }
-                    case "/queue", "/leave": {
-                        if(checkAccess(username))
-                            if(!usersDB.isTeacher(username))
-                                return ((QueueCommand)command).execute(username, inText[1]);
+                    case "/queue", "/leave" -> {
+                        if (checkAccess(username))
+                            if (!usersDB.isTeacher(username))
+                                return ((QueueCommand) command).execute(username, inText[1]);
                             else {
                                 sendMessage.setText("Вы же препод... Зачем вам записываться в очередь...");
                                 return sendMessage;
@@ -79,15 +78,14 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                             return sendMessage;
                         }
                     }
-                    case "/getqueue": {
-                        if(checkAccess(username))
+                    case "/getqueue" -> {
+                        if (checkAccess(username))
                             if (usersDB.isTeacher(username)) {
-                                sendMessage.setText("\"К сожалению преподавателям здесь нельзя смотреть на полную очередь. Пользуйтесь, \" +\n" +
-                                        "                                        \"пожалуйста, командами /begin, /next, /skip, /finish,\" +\n" +
-                                        "                                        \" чтобы студенты могли следить за продвижением очереди.\"");
+                                sendMessage.setText("К сожалению преподавателям здесь нельзя смотреть на полную очередь. Пользуйтесь, " +
+                                        "пожалуйста, командами /begin, /next, /skip, /finish, " +
+                                        "чтобы студенты могли следить за продвижением очереди.");
                                 return sendMessage;
-                            }
-                            else {
+                            } else {
                                 return ((QueueCommand) command).execute(username, inText[1]);
                             }
                         else {
@@ -95,22 +93,35 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                             return sendMessage;
                         }
                     }
-                    case "/accept", "/reject": {
-                        if(usersDB.isAdmin(username))
-                            return ((AdminCommand)command).execute(inText[1], bot);
+                    case "/accept", "/reject" -> {
+                        if (usersDB.isAdmin(username))
+                            return ((AdminCommand) command).execute(inText[1], bot);
                         else {
                             sendMessage.setText("Это админская команда.");
                             return sendMessage;
                         }
                     }
+                    case "/reset" -> {
+                        taskManager.clearTasks(username);
+                        sendMessage.setText("Ввод успешно прерван");
+                        return sendMessage;
+                    }
                 }
-            sendMessage.setText("Я не умею на такое отвечать:( Посмотрите справку по командам: /help.");
-            return sendMessage;
+            return checkForTasks(sendMessage, username, inText[0], bot);
         } catch (Exception e) {
             e.printStackTrace();
             sendMessage.setText("Ой.. Что-то пошло не так.");
             return sendMessage;
         }
+    }
+
+    private SendMessage checkForTasks(SendMessage sendMessage, String username, String argument, TelegramLongPollingBot bot) {
+        if(taskManager.hasRunningTasks(username)) {
+            sendMessage = taskManager.executeNextTask(username, argument, bot);
+        }
+        else
+            sendMessage.setText("Я не умею на такое отвечать:( Посмотрите справку по командам: /help.");
+        return sendMessage;
     }
 
     private boolean checkAccess(String username) {

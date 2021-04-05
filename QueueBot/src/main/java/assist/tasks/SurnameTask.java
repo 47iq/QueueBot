@@ -22,4 +22,9 @@ public class SurnameTask implements Task{
     public Task next() {
         return new NameTask(userData);
     }
+
+    @Override
+    public String toString() {
+        return "surname";
+    }
 }

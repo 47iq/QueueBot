@@ -23,4 +23,9 @@ public class NameTask implements Task{
     public Task next() {
         return new RoleTask(userData);
     }
+
+    @Override
+    public String toString() {
+        return "name";
+    }
 }
