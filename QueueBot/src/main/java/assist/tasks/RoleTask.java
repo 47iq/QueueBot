@@ -1,3 +1,4 @@
+/*
 package assist.tasks;
 
 import data.UserData;
@@ -22,3 +23,4 @@ public class RoleTask implements Task{
         return null;
     }
 }
+*/

@@ -3,9 +3,9 @@ package assist.tasks;
 import data.UserData;
 import data.WaitingPoolDB;
 
-public class NameTask implements Task{
+public class NameTask {
 
-    private final UserData userData;
+    /*private final UserData userData;
 
     public NameTask(UserData userData) {
         this.userData = userData;
@@ -20,5 +20,5 @@ public class NameTask implements Task{
     @Override
     public Task next() {
         return new RoleTask(message);
-    }
+    }*/
 }

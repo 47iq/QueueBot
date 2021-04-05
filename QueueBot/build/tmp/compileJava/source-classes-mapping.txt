@@ -8,24 +8,26 @@ commands/QueueCommand.java
  commands.QueueCommand
 data/TablesDBManager.java
  data.TablesDBManager
+assist/tasks/NameTask.java
+ assist.tasks.NameTask
 data/Subject.java
  data.Subject
  data.Subject$1
  data.Subject$2
 data/UserData.java
  data.UserData
-commands/NextCommand.java
- commands.NextCommand
+tg_processor/TGMessageProcessor.java
+ tg_processor.TGMessageProcessor
 commands/TeacherCommand.java
  commands.TeacherCommand
 commands/FinishCommand.java
  commands.FinishCommand
 commands/RegisterCommand.java
  commands.RegisterCommand
-commands/StartCommand.java
- commands.StartCommand
-Main.java
- Main
+assist/tasks/GroupTask.java
+ assist.tasks.GroupTask
+assist/tasks/SubjectTask.java
+ assist.tasks.SubjectTask
 commands/HelpCommand.java
  commands.HelpCommand
 commands/QueueLeaveCommand.java
@@ -36,8 +38,12 @@ data/UsersDB.java
  data.UsersDB
 data/QueueDBManager.java
  data.QueueDBManager
+assist/tasks/SubGroupTask.java
+ assist.tasks.SubGroupTask
 data/UsersDBImpl.java
  data.UsersDBImpl
+assist/TaskManager.java
+ assist.TaskManager
 commands/AuthCommand.java
  commands.AuthCommand
 commands/QueueGetCommand.java
@@ -46,14 +52,16 @@ commands/QueueRegCommand.java
  commands.QueueRegCommand
 tg_processor/TGMessageProcessorImpl.java
  tg_processor.TGMessageProcessorImpl
-commands/SkipCommand.java
- commands.SkipCommand
+data/QueueDBManagerImpl.java
+ data.QueueDBManagerImpl
 assist/ObjectFactoryImpl.java
  assist.ObjectFactoryImpl
 assist/AlertModuleImpl.java
  assist.AlertModuleImpl
 data/DBManagerImpl.java
  data.DBManagerImpl
+assist/tasks/Task.java
+ assist.tasks.Task
 data/WaitingPoolDBImpl.java
  data.WaitingPoolDBImpl
 data/WaitingPoolDB.java
@@ -70,7 +78,17 @@ commands/RejectCommand.java
  commands.RejectCommand
 data/TablesDBManagerImpl.java
  data.TablesDBManagerImpl
-tg_processor/TGMessageProcessor.java
- tg_processor.TGMessageProcessor
-data/QueueDBManagerImpl.java
- data.QueueDBManagerImpl
+assist/TaskManagerImpl.java
+ assist.TaskManagerImpl
+Main.java
+ Main
+inlinekeyboard/InlineKeyboardCreator.java
+ inlinekeyboard.InlineKeyboardCreator
+commands/SkipCommand.java
+ commands.SkipCommand
+commands/StartCommand.java
+ commands.StartCommand
+commands/NextCommand.java
+ commands.NextCommand
+inlinekeyboard/TeacherInlineKeyboardCreator.java
+ inlinekeyboard.TeacherInlineKeyboardCreator

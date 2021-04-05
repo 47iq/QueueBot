@@ -1,4 +1,4 @@
-package assist.tasks;
+/*package assist.tasks;
 
 import data.UserData;
 import data.WaitingPoolDB;
@@ -20,4 +20,4 @@ public class SurnameTask implements Task{
     public Task next() {
         return new NameTask(userData);
     }
-}
+}*/
