@@ -1,4 +1,4 @@
-package assist.tasks;
+/*package assist.tasks;
 
 import assist.AlertModule;
 import data.UserData;
@@ -22,4 +22,4 @@ public class SurnameTask implements Task{
     public Task next() {
         return new NameTask(userData);
     }
-}
+}*/
