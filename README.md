@@ -10,7 +10,7 @@
 ## Команды
 ### Общие команды
 * **help** - вывод информации о командах
-* **register** *NAME SURNAME ROLE{student, admin, teacher} GROUP_NUM SUBGROUP_NUM SUBJECT(для преподов)* - регистрация
+* **register** - подача заявки на регистрацию
 ### Команды для студентов
 * **queue** *SUBJECT_NAME* - записаться в очередь по *SUBJECT_NAME*
 * **getqueue** *SUBJECT_NAME* - получить текущее состояние очереди по *SUBJECT_NAME*
