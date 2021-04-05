@@ -2,6 +2,7 @@ package commands;
 
 import data.QueueDBManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -16,18 +17,23 @@ public class StartCommand implements TeacherCommand{
     }
 
     @Override
-    public String execute(String username, TelegramLongPollingBot bot) {
+    public SendMessage execute(String username, TelegramLongPollingBot bot) {
+        SendMessage sendMessage = new SendMessage();
         try {
             Charset charset = Charset.forName("windows-1251");
             String message = queueDBManager.startQueue(username);
             if(message != null)
                 message = charset.decode(ByteBuffer.wrap(message.getBytes(StandardCharsets.UTF_8))).toString();
-            else
-                return "Никто не пришел на фан-встречу((( Очередь пустая.";
-            return "Здравствуйте! Первый сегодня: " + message;
+            else {
+                sendMessage.setText("Никто не пришел на фан-встречу((( Очередь пустая.");
+                return sendMessage;
+            }
+            sendMessage.setText("Здравствуйте! Первый сегодня: " + message);
+            return sendMessage;
         } catch (Exception e) {
             e.printStackTrace();
-            return "Ой. Что-то пошло сильно не так. Напишите пж @true_47iq";
+            sendMessage.setText("Ой. Что-то пошло сильно не так. Напишите пж @true_47iq");
+            return sendMessage;
         }
     }
 }

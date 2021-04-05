@@ -3,6 +3,7 @@ package commands;
 import data.QueueDBManager;
 import data.Subject;
 import data.UsersDB;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -21,16 +22,19 @@ public class QueueGetCommand implements QueueCommand{
     }
 
     @Override
-    public String execute(String username, String subject) {
+    public SendMessage execute(String username, String subject) {
+        SendMessage sendMessage = new SendMessage();
         try {
             List<String> list = manager.getQueue(Subject.forName(subject), username);
             String result = list.stream().map(usersDB::getName).reduce((x, y)->(x + "\n" + y)).get();
             Charset charset = Charset.forName("windows-1251");
             result = charset.decode(ByteBuffer.wrap(result.getBytes(StandardCharsets.UTF_8))).toString();
-            return result;
+            sendMessage.setText(result);
+            return sendMessage;
         } catch (Exception e) {
             e.printStackTrace();
-            return "Ой. Что-то пошло сильно не так. Напишите пж @true_47iq";
+            sendMessage.setText("Ой. Что-то пошло сильно не так. Напишите пж @true_47iq");
+            return sendMessage;
         }
     }
 }

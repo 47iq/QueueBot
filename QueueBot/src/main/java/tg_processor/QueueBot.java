@@ -30,13 +30,15 @@ public class QueueBot extends TelegramLongPollingBot {
     @Override
     public void onUpdateReceived(Update update) {
         try {
-            if (update.hasMessage() && update.getMessage().hasText()) {
-                String defaultMessage = tgMessageProcessor.getAnswer(update, this);
-                defaultMessage = StandardCharsets.UTF_8.decode(ByteBuffer.wrap(defaultMessage.getBytes("windows-1251"))).toString();
-                SendMessage message = new SendMessage(); // Create a SendMessage object with mandatory fields
-                message.setText(defaultMessage);
-                message.setChatId(update.getMessage().getChatId().toString());
-                execute(message); // Call method to send the message
+            if ((update.hasMessage() && update.getMessage().hasText()) || update.hasCallbackQuery()) {
+                SendMessage defaultMessage = tgMessageProcessor.getAnswer(update, this);
+                defaultMessage.setText(StandardCharsets.UTF_8.decode(ByteBuffer.wrap(defaultMessage.getText().getBytes("windows-1251"))).toString());
+                if (update.hasCallbackQuery()) {
+                    defaultMessage.setChatId(update.getCallbackQuery().getMessage().getChatId().toString());
+                } else {
+                    defaultMessage.setChatId(update.getMessage().getChatId().toString());
+                }
+                execute(defaultMessage); // Call method to send the message
             }
         }catch (TelegramApiException | UnsupportedEncodingException e) {
             e.printStackTrace();

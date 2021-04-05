@@ -2,6 +2,7 @@ package commands;
 
 import data.QueueDBManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -16,18 +17,23 @@ public class SkipCommand implements TeacherCommand{
     }
 
     @Override
-    public String execute(String username, TelegramLongPollingBot bot) {
+    public SendMessage execute(String username, TelegramLongPollingBot bot) {
+        SendMessage sendMessage = new SendMessage();
         try {
             Charset charset = Charset.forName("windows-1251");
             String message = queueDBManager.skipStudent(username, bot);
             if(message != null)
                 message = charset.decode(ByteBuffer.wrap(message.getBytes(StandardCharsets.UTF_8))).toString();
-            else
-                return "Ура, вы всех завалили! Очередь пустая.";
-            return "Предыдущий студент скипнут. Следующий: " + message;
+            else {
+                sendMessage.setText("Ура, вы всех завалили! Очередь пустая.");
+                return sendMessage;
+            }
+            sendMessage.setText("Предыдущий студент скипнут. Следующий: " + message);
+            return sendMessage;
         } catch (Exception e) {
             e.printStackTrace();
-            return "Ой. Что-то пошло сильно не так. Напишите пж @true_47iq";
+            sendMessage.setText("Ой. Что-то пошло сильно не так. Напишите пж @true_47iq");
+            return sendMessage;
         }
     }
 }

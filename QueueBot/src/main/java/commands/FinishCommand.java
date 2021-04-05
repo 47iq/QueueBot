@@ -2,6 +2,7 @@ package commands;
 
 import data.QueueDBManager;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 public class FinishCommand implements TeacherCommand{
 
@@ -12,12 +13,16 @@ public class FinishCommand implements TeacherCommand{
     }
 
     @Override
-    public String execute(String username, TelegramLongPollingBot bot) {
+    public SendMessage execute(String username, TelegramLongPollingBot bot) {
+        SendMessage sendMessage = null;
         try {
+            sendMessage = new SendMessage();
             queueDBManager.finishQueue(username);
-            return "Сдача завершена. До свидания и хорошего вам дня!";
+            sendMessage.setText("Сдача завершена. До свидания и хорошего вам дня!");
+            return sendMessage;
         } catch (Exception e) {
-            return "Ой. Что-то пошло сильно не так. Напишите пж @true_47iq";
+            sendMessage.setText("Ой. Что-то пошло сильно не так. Напишите пж @true_47iq");
+            return sendMessage;
         }
     }
 }
