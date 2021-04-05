@@ -3,6 +3,7 @@ package assist.tasks;
 import assist.AlertModule;
 import data.Subject;
 import data.UserData;
+import data.UsersDB;
 import data.WaitingPoolDB;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
@@ -15,7 +16,7 @@ public class SubmitTask implements Task{
     }
 
     @Override
-    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule, TelegramLongPollingBot bot) {
+    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule, TelegramLongPollingBot bot, UsersDB usersDB) {
         if(userData.getRole().equals("teacher"))
             userData.setSubject(Subject.forName(argument));
         else
@@ -23,7 +24,7 @@ public class SubmitTask implements Task{
         try {
             waitingPoolDB.register(username, userData.getName(), userData.getSurname(), userData.getRole(),
                     userData.getGroup(), userData.getSubGroup(), userData.getRole().equals("teacher") ? userData.getSubject().toString() : null , userData.getChat_id());
-            alertModule.alertRegisterAdmin(username, bot);
+            alertModule.alertRegisterAdmin(username, bot, usersDB.getAdminChatId(userData.getGroup()));
             return "Запрос передан на модерацию.";
         } catch (Exception e) {
             e.printStackTrace();

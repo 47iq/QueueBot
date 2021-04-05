@@ -30,7 +30,7 @@ public class Main {
             alertModule = new AlertModuleImpl(manager.getUsersDB(), manager.getWaitingPool());
             manager.getQueueDB().setAlertModule(alertModule);
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
-            TaskManager taskManager = new TaskManagerImpl(manager.getWaitingPool(), alertModule);
+            TaskManager taskManager = new TaskManagerImpl(manager.getWaitingPool(), alertModule, manager.getUsersDB());
             telegramBotsApi.registerBot(new QueueBot(new TGMessageProcessorImpl(getCommands(), manager.getUsersDB(), taskManager)));
         } catch (Exception e) {
             e.printStackTrace();

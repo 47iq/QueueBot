@@ -15,6 +15,8 @@ public class DBManagerImpl implements DBManager{
 
     private TablesDBManager tablesDBManager;
 
+    private AdminsDB adminsDB;
+
     private Connection connection;
 
     private final ObjectFactory factory;
@@ -27,9 +29,10 @@ public class DBManagerImpl implements DBManager{
     public void start(String url, String user, String password) {
         try {
             connection = DriverManager.getConnection(url, user, password);
+            adminsDB = factory.getAdminsDB(connection);
             tablesDBManager = factory.getTablesDB(connection, factory);
             waitingPoolDB = factory.getWaitingPool(connection, factory);
-            usersDB = factory.getUsersDB(connection, factory);
+            usersDB = factory.getUsersDB(connection, factory, adminsDB);
             queueDBManager = factory.getQueueData(connection, usersDB, tablesDBManager);
         } catch (Exception e) {
             e.printStackTrace();

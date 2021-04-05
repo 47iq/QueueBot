@@ -7,8 +7,8 @@ import java.sql.SQLException;
 
 public class ObjectFactoryImpl implements ObjectFactory {
     @Override
-    public UsersDB getUsersDB(Connection connection, ObjectFactory factory) throws SQLException {
-        return new UsersDBImpl(connection, factory);
+    public UsersDB getUsersDB(Connection connection, ObjectFactory factory, AdminsDB adminsDB) throws SQLException {
+        return new UsersDBImpl(connection, factory, adminsDB);
     }
 
     @Override
@@ -29,5 +29,10 @@ public class ObjectFactoryImpl implements ObjectFactory {
     @Override
     public TablesDBManager getTablesDB(Connection connection, ObjectFactory factory) throws SQLException {
         return new TablesDBManagerImpl(connection, factory);
+    }
+
+    @Override
+    public AdminsDB getAdminsDB(Connection connection) throws SQLException {
+        return new AdminsDBImpl(connection);
     }
 }
