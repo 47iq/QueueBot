@@ -4,6 +4,7 @@ import assist.AlertModule;
 import data.UsersDB;
 import data.WaitingPoolDB;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.io.UnsupportedEncodingException;
@@ -24,9 +25,11 @@ public class RejectCommand implements AdminCommand{
     }
 
     @Override
-    public String execute(String username, TelegramLongPollingBot bot) throws SQLException, TelegramApiException, UnsupportedEncodingException {
+    public SendMessage execute(String username, TelegramLongPollingBot bot) throws SQLException, TelegramApiException, UnsupportedEncodingException {
+        SendMessage sendMessage = new SendMessage();
         waitingPoolDB.delete(username);
         alertModule.alertRejectUser(username, bot);
-        return "F челу";
+        sendMessage.setText("F челу");
+        return sendMessage;
     }
 }

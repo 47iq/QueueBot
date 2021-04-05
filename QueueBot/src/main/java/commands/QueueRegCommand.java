@@ -2,6 +2,7 @@ package commands;
 
 import data.QueueDBManager;
 import data.Subject;
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.sql.SQLException;
 
@@ -14,15 +15,19 @@ public class QueueRegCommand implements QueueCommand{
     }
 
     @Override
-    public String execute(String username, String subject) {
+    public SendMessage execute(String username, String subject) {
+        SendMessage sendMessage = new SendMessage();
         try {
             manager.add(username, Subject.forName(subject));
-            return "Вы успешно записались в очередь. Посмотреть ее можно командой /getqueue";
+            sendMessage.setText("Вы успешно записались в очередь. Посмотреть ее можно командой /getqueue");
+            return sendMessage;
         } catch (SQLException e) {
-            return "Ой. Что-то пошло не так. Возможно, вы уже записаны в очередь. Если нет, то напишите пж @true_47iq";
+            sendMessage.setText("Ой. Что-то пошло не так. Возможно, вы уже записаны в очередь. Если нет, то напишите пж @true_47iq");
+            return sendMessage;
         } catch (IllegalArgumentException e) {
             e.printStackTrace();
-            return "Вашего предмета нет в списке. Он должен быть одним из: {OPD, Programming}.";
+            sendMessage.setText("Вашего предмета нет в списке. Он должен быть одним из: {OPD, Programming}.");
+            return sendMessage;
         }
     }
 }

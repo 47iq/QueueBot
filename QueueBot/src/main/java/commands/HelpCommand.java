@@ -1,7 +1,15 @@
 package commands;
 
+import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class HelpCommand implements Command{
-    public String execute() {
+    public SendMessage execute() {
+        SendMessage sendMessage = new SendMessage();
         String message = "/register - подать заявку на регистрацию.\n" +
                 "Синтаксис: /register имя фамилия роль(student, teacher, admin) группа подгруппа предмет(для teacher).\n" +
                 "Пример: /register Павел Данилов student 3110 1\n" +
@@ -15,6 +23,7 @@ public class HelpCommand implements Command{
         message += "/next - получить следующего сдающего и оповестить его.\n";
         message += "/skip - отправить текущего сдеющего в конец очереди и получить следующего.\n";
         message += "/finish - завершить прием лабораторной.\n";
-        return message;
+        sendMessage.setText(message);
+        return sendMessage;
     }
 }

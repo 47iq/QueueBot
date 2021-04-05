@@ -6,5 +6,5 @@ import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 public interface TGMessageProcessor {
-    String getAnswer(Update message, TelegramLongPollingBot bot);
+    SendMessage getAnswer(Update message, TelegramLongPollingBot bot);
 }
