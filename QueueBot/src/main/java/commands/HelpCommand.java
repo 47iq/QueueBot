@@ -10,10 +10,7 @@ import java.util.List;
 public class HelpCommand implements Command{
     public SendMessage execute() {
         SendMessage sendMessage = new SendMessage();
-        String message = "/register - подать заявку на регистрацию.\n" +
-                "Синтаксис: /register имя фамилия роль(student, teacher, admin) группа подгруппа предмет(для teacher).\n" +
-                "Пример: /register Павел Данилов student 3110 1\n" +
-                "Пример 2: /register Петр Петров teacher 3110 1 OPD\n\n";
+        String message = "/register - подать заявку на регистрацию.\n\n";
         message += "Команды для студентов:\n";
         message += "/queue - зарегистрироваться в очередь. \nСинтаксис: /queue ПРЕДМЕТ. Пример: /queue OPD\n";
         message += "/leave - покинуть очередь. \nСинтаксис: /leave ПРЕДМЕТ. Пример: /leave OPD\n";
