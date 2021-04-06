@@ -37,7 +37,7 @@ public class Main {
                     new RoleInlineKeyboardCreator(), new SubGroupInlineKeyboardCreator(), new SubjectInlineKeyBoardCreator(),
                     new ListedInlineKeyboardCreator(), manager.getQueueDB());
             telegramBotsApi.registerBot(new QueueBot(new TGMessageProcessorImpl(getCommands(),
-                    manager.getUsersDB(), taskManager), new KeyboardCreatorImpl(manager.getUsersDB())));
+                    manager.getUsersDB(), taskManager, new KeyboardCreatorImpl(manager.getUsersDB()))));
         } catch (Exception e) {
             e.printStackTrace();
         }
