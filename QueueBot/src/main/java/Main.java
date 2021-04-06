@@ -2,14 +2,12 @@ import assist.*;
 import commands.*;
 import data.DBManager;
 import data.DBManagerImpl;
-import data.QueueDBManagerImpl;
 import inlinekeyboard.*;
 import org.telegram.telegrambots.meta.TelegramBotsApi;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 import tg_processor.QueueBot;
 import tg_processor.TGMessageProcessorImpl;
 
-import javax.management.relation.Role;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -37,7 +35,7 @@ public class Main {
                     new RoleInlineKeyboardCreator(), new SubGroupInlineKeyboardCreator(), new SubjectInlineKeyBoardCreator(),
                     new ListedInlineKeyboardCreator(), manager.getQueueDB());
             telegramBotsApi.registerBot(new QueueBot(new TGMessageProcessorImpl(getCommands(),
-                    manager.getUsersDB(), taskManager), new KeyboardCreatorImpl(manager.getUsersDB())));
+                    manager.getUsersDB(), taskManager, new KeyboardCreatorImpl(manager.getUsersDB()))));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -51,7 +49,7 @@ public class Main {
         commandMap.put("/leave", new QueueLeaveCommand(manager.getQueueDB()));
         commandMap.put("/getqueue", new QueueGetCommand(manager.getQueueDB(), manager.getUsersDB()));
         commandMap.put("/skip", new SkipCommand(manager.getQueueDB()));
-        commandMap.put("/begin", new StartCommand(manager.getQueueDB()));
+        commandMap.put("/begin", new BeginCommand(manager.getQueueDB()));
         commandMap.put("/finish", new FinishCommand(manager.getQueueDB()));
         commandMap.put("/next", new NextCommand(manager.getQueueDB()));
         commandMap.put("/accept", new AcceptCommand(manager.getUsersDB(), manager.getWaitingPool(), alertModule));

@@ -60,8 +60,8 @@ data/WaitingPoolDBImpl.java
  data.WaitingPoolDBImpl
 assist/tasks/RejectUsernameTask.java
  assist.tasks.RejectUsernameTask
-tg_processor/QueueBot.java
- tg_processor.QueueBot
+data/TablesDBManagerImpl.java
+ data.TablesDBManagerImpl
 assist/UTF8Converter.java
  assist.UTF8Converter
 commands/Command.java
@@ -98,8 +98,8 @@ assist/tasks/AccUsernameTask.java
  assist.tasks.AccUsernameTask
 commands/StartCommand.java
  commands.StartCommand
-tg_processor/TGMessageProcessor.java
- tg_processor.TGMessageProcessor
+assist/TaskManagerImpl.java
+ assist.TaskManagerImpl
 inlinekeyboard/ListedKeyboardCreator.java
  inlinekeyboard.ListedKeyboardCreator
 commands/HelpCommand.java
@@ -136,10 +136,10 @@ assist/Win1251Converter.java
  assist.Win1251Converter
 commands/RejectCommand.java
  commands.RejectCommand
-data/TablesDBManagerImpl.java
- data.TablesDBManagerImpl
-assist/TaskManagerImpl.java
- assist.TaskManagerImpl
+tg_processor/QueueBot.java
+ tg_processor.QueueBot
+tg_processor/TGMessageProcessor.java
+ tg_processor.TGMessageProcessor
 tg_processor/TGMessageProcessorImpl.java
  tg_processor.TGMessageProcessorImpl
 Main.java

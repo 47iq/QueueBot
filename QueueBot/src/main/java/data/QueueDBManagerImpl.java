@@ -72,11 +72,12 @@ public class QueueDBManagerImpl implements QueueDBManager{
     }
 
     @Override
-    public String startQueue(String username) throws SQLException {
+    public String startQueue(String username, TelegramLongPollingBot bot) throws SQLException, UnsupportedEncodingException, TelegramApiException {
         String tableName = getTableName(username);
         String userNick = getNextUsername(tableName);
         if(userNick == null)
             return null;
+        alertModule.alertQueueUser(userNick, usersDB.getSubject(username), bot);
         return usersDB.getName(userNick);
     }
 

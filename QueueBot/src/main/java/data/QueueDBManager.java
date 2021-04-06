@@ -12,7 +12,7 @@ public interface QueueDBManager {
     void add(String username, Subject subject) throws SQLException;
     String nextStudent(String username, TelegramLongPollingBot bot) throws SQLException, UnsupportedEncodingException, TelegramApiException;
     String skipStudent(String username, TelegramLongPollingBot bot) throws SQLException, UnsupportedEncodingException, TelegramApiException;
-    String startQueue(String username) throws SQLException;
+    String startQueue(String username, TelegramLongPollingBot bot) throws SQLException, UnsupportedEncodingException, TelegramApiException;
     void finishQueue(String username) throws SQLException;
     void createAll(int group) throws SQLException;
     void create(Subject subject, int group, int subgroup) throws SQLException;
