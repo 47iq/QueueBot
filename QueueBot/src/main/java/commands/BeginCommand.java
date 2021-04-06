@@ -10,11 +10,11 @@ import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 
-public class StartCommand implements TeacherCommand{
+public class BeginCommand implements TeacherCommand{
 
     private final QueueDBManager queueDBManager;
 
-    public StartCommand(QueueDBManager queueDBManager) {
+    public BeginCommand(QueueDBManager queueDBManager) {
         this.queueDBManager = queueDBManager;
     }
 
@@ -24,7 +24,7 @@ public class StartCommand implements TeacherCommand{
         InlineKeyboardCreator creator = new TeacherInlineKeyboardCreator();
         try {
             Charset charset = Charset.forName("windows-1251");
-            String message = queueDBManager.startQueue(username);
+            String message = queueDBManager.startQueue(username, bot);
             if(message != null)
                 message = charset.decode(ByteBuffer.wrap(message.getBytes(StandardCharsets.UTF_8))).toString();
             else {

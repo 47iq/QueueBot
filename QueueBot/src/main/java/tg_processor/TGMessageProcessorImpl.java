@@ -36,16 +36,15 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
     @Override
     public void process(Update update, TelegramLongPollingBot bot) {
         SendMessage sendMessage = new SendMessage();
-        Charset charset = Charset.forName("windows-1251");
-        String message, username = "";
+        String message, username;
         long chat_id;
         if (update.hasCallbackQuery()) {
-            message = charset.decode(ByteBuffer.wrap(update.getCallbackQuery().getData().getBytes(StandardCharsets.UTF_8))).toString();
-            username = charset.decode(ByteBuffer.wrap(update.getCallbackQuery().getFrom().getUserName().getBytes(StandardCharsets.UTF_8))).toString();
+            message = (ByteBuffer.wrap(update.getCallbackQuery().getData().getBytes(StandardCharsets.UTF_8))).toString();
+            username = (ByteBuffer.wrap(update.getCallbackQuery().getFrom().getUserName().getBytes(StandardCharsets.UTF_8))).toString();
             chat_id = update.getCallbackQuery().getMessage().getChatId();
         } else {
-            message = charset.decode(ByteBuffer.wrap(update.getMessage().getText().getBytes(StandardCharsets.UTF_8))).toString();
-            username = charset.decode(ByteBuffer.wrap(update.getMessage().getFrom().getUserName().getBytes(StandardCharsets.UTF_8))).toString();
+            message = (ByteBuffer.wrap(update.getMessage().getText().getBytes(StandardCharsets.UTF_8))).toString();
+            username = (ByteBuffer.wrap(update.getMessage().getFrom().getUserName().getBytes(StandardCharsets.UTF_8))).toString();
             chat_id = update.getMessage().getChatId();
         }
         try {
