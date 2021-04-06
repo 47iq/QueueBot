@@ -15,7 +15,6 @@ public class TeacherInlineKeyboardCreator implements InlineKeyboardCreator{
         InlineKeyboardButton inlineKeyboardButton2 = new InlineKeyboardButton();
         InlineKeyboardButton inlineKeyboardButton3 = new InlineKeyboardButton();
 
-
         inlineKeyboardButton1.setText("⏭Next student");
         inlineKeyboardButton1.setCallbackData("/next");
         inlineKeyboardButton2.setText("Skip student");

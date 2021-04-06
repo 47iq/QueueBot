@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class UsersDBImpl implements UsersDB{
+public class UsersDBImpl implements UsersDB {
 
     private final Connection connection;
 
@@ -20,9 +20,12 @@ public class UsersDBImpl implements UsersDB{
 
     private final ObjectFactory factory;
 
-    public UsersDBImpl(Connection connection, ObjectFactory factory) throws SQLException {
+    private final AdminsDB adminsDB;
+
+    public UsersDBImpl(Connection connection, ObjectFactory factory, AdminsDB adminsDB) throws SQLException {
         this.connection = connection;
         this.factory = factory;
+        this.adminsDB = adminsDB;
         create();
         init();
     }
@@ -65,21 +68,22 @@ public class UsersDBImpl implements UsersDB{
         preparedStatement.setString(4, role);
         preparedStatement.setInt(5, studyGroup);
         preparedStatement.setInt(6, subGroup);
-        if(subject != null)
+        if (subject != null)
             preparedStatement.setString(7, subject);
         else
             preparedStatement.setNull(7, Types.VARCHAR);
         preparedStatement.setLong(8, chat_id);
         preparedStatement.execute();
+        adminsDB.add(username, studyGroup);
         addToCache(username, name, surname, role, studyGroup, subGroup, subject, chat_id);
     }
 
     private void addToCache(String username, String name, String surname, String role, int studyGroup,
-                            int subGroup, String subject, long chat_id) {
+                            int subGroup, String subject, long chat_id) throws SQLException {
         users.put(username, factory.getUsersData(name, surname, role, studyGroup, subGroup, subject, chat_id));
-        if(role.equals("admin"))
+        if (role.equals("admin"))
             admins.add(username);
-        if(role.equals("teacher"))
+        if (role.equals("teacher"))
             teachers.add(username);
     }
 
@@ -121,5 +125,14 @@ public class UsersDBImpl implements UsersDB{
     @Override
     public long getChatId(String username) {
         return users.get(username).getChat_id();
+    }
+
+    @Override
+    public Long getAdminChatId(int group) {
+        String username = adminsDB.getAdminUsername(group);
+        if (username == null)
+            return null;
+        else
+            return users.get(username).getChat_id();
     }
 }

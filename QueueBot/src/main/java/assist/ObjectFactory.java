@@ -6,7 +6,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public interface ObjectFactory {
-    UsersDB getUsersDB(Connection connection, ObjectFactory factory) throws SQLException;
+    UsersDB getUsersDB(Connection connection, ObjectFactory factory, AdminsDB adminsDB) throws SQLException;
 
     WaitingPoolDB getWaitingPool(Connection connection, ObjectFactory factory) throws SQLException;
 
@@ -15,4 +15,6 @@ public interface ObjectFactory {
     UserData getUsersData(String name, String surname, String role, int studyGroup, int subGroup, String subject, long chat_id);
 
     TablesDBManager getTablesDB(Connection connection, ObjectFactory factory) throws SQLException;
+
+    AdminsDB getAdminsDB(Connection connection) throws SQLException;
 }

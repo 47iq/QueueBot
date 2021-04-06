@@ -4,6 +4,7 @@ import assist.tasks.SurnameTask;
 import assist.tasks.Task;
 import commands.RegisterCommand;
 import data.UserDataImpl;
+import data.UsersDB;
 import data.WaitingPoolDB;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -19,9 +20,12 @@ public class TaskManagerImpl implements TaskManager{
 
     private final AlertModule alertModule;
 
-    public TaskManagerImpl(WaitingPoolDB waitingPoolDB, AlertModule alertModule) {
+    private final UsersDB usersDB;
+
+    public TaskManagerImpl(WaitingPoolDB waitingPoolDB, AlertModule alertModule, UsersDB usersDB) {
         this.waitingPoolDB = waitingPoolDB;
         this.alertModule = alertModule;
+        this.usersDB = usersDB;
     }
 
     @Override
@@ -37,7 +41,7 @@ public class TaskManagerImpl implements TaskManager{
     @Override
     public SendMessage executeNextTask(String username, String arg, TelegramLongPollingBot bot) {
         Task task = taskMap.get(username);
-        String ans = task.execute(username, arg, waitingPoolDB, alertModule, bot);
+        String ans = task.execute(username, arg, waitingPoolDB, alertModule, bot, usersDB);
         SendMessage message = new SendMessage();
         message.setText(ans);
         zaloopa(message, task);
@@ -67,7 +71,7 @@ public class TaskManagerImpl implements TaskManager{
         taskMap.put(username, new SurnameTask(new UserDataImpl()));
         SendMessage message = new SendMessage();
         Task task = taskMap.get(username);
-        message.setText(task.execute(username, "", waitingPoolDB, alertModule, null));
+        message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB));
         taskMap.put(username, task.next());
         return message;
     }

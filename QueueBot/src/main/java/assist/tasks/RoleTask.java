@@ -2,6 +2,7 @@ package assist.tasks;
 
 import assist.AlertModule;
 import data.UserData;
+import data.UsersDB;
 import data.WaitingPoolDB;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
@@ -14,7 +15,8 @@ public class RoleTask implements Task{
     }
 
     @Override
-    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule, TelegramLongPollingBot bot) {
+    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
+                          TelegramLongPollingBot bot, UsersDB usersDB) {
         userData.setName(argument);
         return "Введите, пожалуйста запрашиваемую роль{admin, teacher, student}:";
     }

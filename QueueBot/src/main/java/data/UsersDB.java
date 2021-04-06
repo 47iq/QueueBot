@@ -13,4 +13,5 @@ public interface UsersDB {
     String getName(String username);
     Subject getSubject(String username);
     long getChatId(String username);
+    Long getAdminChatId(int group);
 }
