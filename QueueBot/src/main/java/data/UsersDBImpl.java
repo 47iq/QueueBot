@@ -106,7 +106,9 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
     }
 
     @Override
-    public int getGroup(String username) {
+    public Integer getGroup(String username) {
+        if(users.get(username) == null)
+            return null;
         return users.get(username).getGroup();
     }
 

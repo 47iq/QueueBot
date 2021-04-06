@@ -10,7 +10,7 @@ public interface UsersDB {
     boolean isPresent(String username);
     boolean isTeacher(String username);
     boolean isAdmin(String username);
-    int getGroup(String username);
+    Integer getGroup(String username);
     int getSubGroup(String username);
     String getName(String username);
     Subject getSubject(String username);
