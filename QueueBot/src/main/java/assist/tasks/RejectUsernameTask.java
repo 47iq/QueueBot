@@ -2,33 +2,31 @@ package assist.tasks;
 
 import assist.AlertModule;
 import data.QueueDBManager;
-import data.UserData;
 import data.UsersDB;
 import data.WaitingPoolDB;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
-public class RoleTask implements Task{
+public class RejectUsernameTask implements Task{
 
-    private final UserData userData;
+    private final String message;
 
-    public RoleTask(UserData userData) {
-        this.userData = userData;
+    public RejectUsernameTask(String message) {
+        this.message = message;
     }
 
     @Override
     public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
                           TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) {
-        userData.setName(argument);
-        return "Введите, пожалуйста запрашиваемую роль{admin, teacher, student}:";
+        return "Кого вы хотите отклонить?";
     }
 
     @Override
     public Task next() {
-        return new GroupTask(userData);
+        return new RejectTask(message);
     }
 
     @Override
     public String toString() {
-        return "role";
+        return "rejectusername";
     }
 }

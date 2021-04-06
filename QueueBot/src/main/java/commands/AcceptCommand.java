@@ -27,7 +27,7 @@ public class AcceptCommand implements AdminCommand{
     }
 
     @Override
-    public SendMessage execute(String username, TelegramLongPollingBot bot, TaskManager taskManager) throws SQLException, TelegramApiException, UnsupportedEncodingException {
-        return taskManager.startAccept(username);
+    public SendMessage execute(String username, TelegramLongPollingBot bot, TaskManager taskManager, long chat_id) throws SQLException, TelegramApiException, UnsupportedEncodingException {
+        return taskManager.startAccept(username, chat_id);
     }
 }

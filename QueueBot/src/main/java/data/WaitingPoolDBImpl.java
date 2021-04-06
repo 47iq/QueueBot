@@ -1,6 +1,7 @@
 package data;
 
 import assist.ObjectFactory;
+import assist.Win1251Converter;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-public class WaitingPoolDBImpl implements WaitingPoolDB{
+public class WaitingPoolDBImpl implements WaitingPoolDB, Win1251Converter {
 
     private final Connection connection;
 
@@ -38,7 +39,7 @@ public class WaitingPoolDBImpl implements WaitingPoolDB{
             String role = resultSet.getString(4);
             int group = resultSet.getInt(5);
             int subGroup = resultSet.getInt(6);
-            String subject = resultSet.getString(7);
+            String subject = convert(resultSet.getString(7));
             long chat_id = resultSet.getLong(8);
             addToCache(username, name, surname, role, group, subGroup, subject, chat_id);
         }
@@ -80,6 +81,7 @@ public class WaitingPoolDBImpl implements WaitingPoolDB{
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
         preparedStatement.setString(1, username);
         preparedStatement.execute();
+        users.remove(username);
     }
 
     private void addToCache(String username, String name, String surname, String role, int studyGroup,
@@ -107,5 +109,10 @@ public class WaitingPoolDBImpl implements WaitingPoolDB{
     @Override
     public List<String> getUsers() {
         return new ArrayList<>(users.keySet());
+    }
+
+    @Override
+    public int getGroup(String username) {
+        return users.get(username).getGroup();
     }
 }

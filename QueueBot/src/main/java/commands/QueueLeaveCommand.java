@@ -1,5 +1,6 @@
 package commands;
 
+import assist.TaskManager;
 import data.QueueDBManager;
 import data.Subject;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -15,19 +16,7 @@ public class QueueLeaveCommand implements QueueCommand{
     }
 
     @Override
-    public SendMessage execute(String username, String subject) {
-        SendMessage sendMessage = new SendMessage();
-        try {
-            manager.remove(username, Subject.forName(subject));
-            sendMessage.setText("Вы успешно записались в очередь. Посмотреть ее можно командой /getqueue");
-            return sendMessage;
-        } catch (SQLException e) {
-            sendMessage.setText("Что-то пошло не так");
-            return sendMessage;
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            sendMessage.setText("Вашего предмета нет в списке. Он должен быть одним из: {OPD, Programming}.");
-            return sendMessage;
-        }
+    public SendMessage execute(String username, TaskManager taskManager, long chat_id) {
+        return  taskManager.startLeave(username, chat_id);
     }
 }

@@ -26,12 +26,7 @@ public class RejectCommand implements AdminCommand{
     }
 
     @Override
-    public SendMessage execute(String username, TelegramLongPollingBot bot, TaskManager taskManager) throws SQLException, TelegramApiException, UnsupportedEncodingException {
-        //TODO
-        /*SendMessage sendMessage = new SendMessage();
-        waitingPoolDB.delete(username);
-        alertModule.alertRejectUser(username, bot);
-        sendMessage.setText("F челу");*/
-        return null;
+    public SendMessage execute(String username, TelegramLongPollingBot bot, TaskManager taskManager, long chat_id) throws SQLException, TelegramApiException, UnsupportedEncodingException {
+        return taskManager.startReject(username, chat_id);
     }
 }

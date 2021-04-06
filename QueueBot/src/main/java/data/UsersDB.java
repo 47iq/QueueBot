@@ -1,5 +1,7 @@
 package data;
 
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
+
 import java.sql.SQLException;
 
 public interface UsersDB {
@@ -14,4 +16,5 @@ public interface UsersDB {
     Subject getSubject(String username);
     long getChatId(String username);
     Long getAdminChatId(int group);
+    String getRole(String username);
 }

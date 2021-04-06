@@ -11,4 +11,5 @@ public interface WaitingPoolDB {
     void delete(String username) throws SQLException;
     String getChatId(String username);
     List<String> getUsers();
+    int getGroup(String username);
 }

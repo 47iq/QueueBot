@@ -29,8 +29,10 @@ public class AlertModuleImpl implements AlertModule, UTF8Converter {
     @Override
     public void alertRegisterAdmin(String username, TelegramLongPollingBot bot, Long chatId) throws TelegramApiException, UnsupportedEncodingException {
         SendMessage message = new SendMessage();
+        int group = waitingPoolDB.getGroup(username);
+        Long chat_id = usersDB.getAdminChatId(group);
         String text = "Привет, там " + username + " из твоей группы хочет зарегаться. Его данные: " + waitingPoolDB.getInfo(username);
-        message.setChatId(String.valueOf(usersDB.getChatId(username)));
+        message.setChatId(String.valueOf(chat_id));
         message.setText(convert(text));
         bot.execute(message);
     }

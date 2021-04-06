@@ -1,6 +1,7 @@
 package assist.tasks;
 
 import assist.AlertModule;
+import data.QueueDBManager;
 import data.UserData;
 import data.UsersDB;
 import data.WaitingPoolDB;
@@ -20,15 +21,17 @@ public class AcceptTask implements Task{
     }
 
     @Override
-    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule, TelegramLongPollingBot bot, UsersDB usersDB){
+    public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
+                          TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager){
         try {
-            UserData data = waitingPoolDB.getData(username);
-            usersDB.register(username, data.getName(), data.getSurname(), data.getRole(), data.getGroup(),
+            UserData data = waitingPoolDB.getData(argument);
+            usersDB.register(argument, data.getName(), data.getSurname(), data.getRole(), data.getGroup(),
                     data.getSubGroup(), data.getRole().equals("teacher") ? data.getSubject().toString() : null , data.getChat_id());
-            waitingPoolDB.delete(username);
-            alertModule.alertRegisterUser(username, bot);
+            waitingPoolDB.delete(argument);
+            alertModule.alertRegisterUser(argument, bot);
             return "Все ок, зарегал";
         } catch (Exception e) {
+            e.printStackTrace();
             return "Ой... Что-то пошло не так. Возможно, пользователь уже зарегистрирован.";
         }
     }

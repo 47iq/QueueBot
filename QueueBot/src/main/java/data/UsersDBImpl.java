@@ -1,6 +1,7 @@
 package data;
 
 import assist.ObjectFactory;
+import assist.Win1251Converter;
 
 import java.sql.*;
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-public class UsersDBImpl implements UsersDB {
+public class UsersDBImpl implements UsersDB, Win1251Converter {
 
     private final Connection connection;
 
@@ -28,6 +29,7 @@ public class UsersDBImpl implements UsersDB {
         this.adminsDB = adminsDB;
         create();
         init();
+        System.out.println(users);
     }
 
     private void init() throws SQLException {
@@ -41,7 +43,7 @@ public class UsersDBImpl implements UsersDB {
             String role = resultSet.getString(4);
             int group = resultSet.getInt(5);
             int subGroup = resultSet.getInt(6);
-            String subject = resultSet.getString(7);
+            String subject = convert(resultSet.getString(7));
             long chat_id = resultSet.getLong(8);
             addToCache(username, name, surname, role, group, subGroup, subject, chat_id);
         }
@@ -74,7 +76,8 @@ public class UsersDBImpl implements UsersDB {
             preparedStatement.setNull(7, Types.VARCHAR);
         preparedStatement.setLong(8, chat_id);
         preparedStatement.execute();
-        adminsDB.add(username, studyGroup);
+        if(role.equals("admin"))
+            adminsDB.add(username, studyGroup);
         addToCache(username, name, surname, role, studyGroup, subGroup, subject, chat_id);
     }
 
@@ -134,5 +137,13 @@ public class UsersDBImpl implements UsersDB {
             return null;
         else
             return users.get(username).getChat_id();
+    }
+
+    @Override
+    public String getRole(String username) {
+        if(users.get(username) == null)
+            return null;
+        else
+            return users.get(username).getRole();
     }
 }

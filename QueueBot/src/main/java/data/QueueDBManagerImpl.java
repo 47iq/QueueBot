@@ -1,6 +1,7 @@
 package data;
 
 import assist.AlertModule;
+import assist.Win1251Converter;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 

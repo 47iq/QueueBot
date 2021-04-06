@@ -9,5 +9,5 @@ import java.io.UnsupportedEncodingException;
 import java.sql.SQLException;
 
 public interface AdminCommand extends Command{
-    SendMessage execute(String username, TelegramLongPollingBot bot, TaskManager taskManager) throws SQLException, TelegramApiException, UnsupportedEncodingException;
+    SendMessage execute(String username, TelegramLongPollingBot bot, TaskManager taskManager, long chat_id) throws SQLException, TelegramApiException, UnsupportedEncodingException;
 }

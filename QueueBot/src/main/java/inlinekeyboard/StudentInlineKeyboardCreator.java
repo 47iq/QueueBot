@@ -7,8 +7,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.ArrayList;
 import java.util.List;
 
-public class TeacherInlineKeyboardCreator implements InlineKeyboardCreator, UTF8Converter {
-
+public class StudentInlineKeyboardCreator implements InlineKeyboardCreator, UTF8Converter {
     @Override
     public InlineKeyboardMarkup createInlineKeyBoardMarkUp() {
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
@@ -17,14 +16,14 @@ public class TeacherInlineKeyboardCreator implements InlineKeyboardCreator, UTF8
         InlineKeyboardButton inlineKeyboardButton3 = new InlineKeyboardButton();
         InlineKeyboardButton inlineKeyboardButton4 = new InlineKeyboardButton();
 
-        inlineKeyboardButton1.setText(convert("Убрать из очереди"));
-        inlineKeyboardButton1.setCallbackData("/next");
-        inlineKeyboardButton2.setText(convert("Отправить в конец"));
-        inlineKeyboardButton2.setCallbackData("/skip");
-        inlineKeyboardButton3.setText(convert("Начать прием"));
-        inlineKeyboardButton3.setCallbackData("/begin");
-        inlineKeyboardButton4.setText(convert("Завершить прием"));
-        inlineKeyboardButton4.setCallbackData("/finish");
+        inlineKeyboardButton1.setText(convert("Справка"));
+        inlineKeyboardButton1.setCallbackData("/help");
+        inlineKeyboardButton2.setText(convert("Записаться в очередь"));
+        inlineKeyboardButton2.setCallbackData("/queue");
+        inlineKeyboardButton3.setText(convert("Выписаться из очереди"));
+        inlineKeyboardButton3.setCallbackData("/leave");
+        inlineKeyboardButton4.setText(convert("Порядок очереди"));
+        inlineKeyboardButton4.setCallbackData("/getqueue");
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
         List<InlineKeyboardButton> keyboardButtonsRow2 = new ArrayList<>();
         keyboardButtonsRow1.add(inlineKeyboardButton1);

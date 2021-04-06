@@ -1,6 +1,7 @@
 package assist.tasks;
 
 import assist.AlertModule;
+import data.QueueDBManager;
 import data.UserData;
 import data.UsersDB;
 import data.WaitingPoolDB;
@@ -16,7 +17,7 @@ public class SubGroupTask implements Task{
 
     @Override
     public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
-                          TelegramLongPollingBot bot, UsersDB usersDB) {
+                          TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) {
         userData.setGroup(Integer.parseInt(argument));
         return "Введите, пожалуйста номер вашей подгруппы:";
     }

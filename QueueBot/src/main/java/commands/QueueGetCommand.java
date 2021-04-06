@@ -1,5 +1,6 @@
 package commands;
 
+import assist.TaskManager;
 import data.QueueDBManager;
 import data.Subject;
 import data.UsersDB;
@@ -22,19 +23,7 @@ public class QueueGetCommand implements QueueCommand{
     }
 
     @Override
-    public SendMessage execute(String username, String subject) {
-        SendMessage sendMessage = new SendMessage();
-        try {
-            List<String> list = manager.getQueue(Subject.forName(subject), username);
-            String result = list.stream().map(usersDB::getName).reduce((x, y)->(x + "\n" + y)).get();
-            Charset charset = Charset.forName("windows-1251");
-            result = charset.decode(ByteBuffer.wrap(result.getBytes(StandardCharsets.UTF_8))).toString();
-            sendMessage.setText(result);
-            return sendMessage;
-        } catch (Exception e) {
-            e.printStackTrace();
-            sendMessage.setText("Ой. Что-то пошло сильно не так. Напишите пж @true_47iq");
-            return sendMessage;
-        }
+    public SendMessage execute(String username, TaskManager taskManager, long chat_id) {
+        return  taskManager.startGetQueue(username, chat_id);
     }
 }

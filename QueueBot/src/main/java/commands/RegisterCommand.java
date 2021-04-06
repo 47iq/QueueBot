@@ -17,7 +17,7 @@ public class RegisterCommand implements AuthCommand{
     }
 
     @Override
-    public SendMessage execute(String username, TaskManager taskManager) {
-        return taskManager.startRegister(username);
+    public SendMessage execute(String username, TaskManager taskManager, long chat_id) {
+        return taskManager.startRegister(username, chat_id);
     }
 }
