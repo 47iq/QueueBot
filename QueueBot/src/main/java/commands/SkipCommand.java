@@ -35,6 +35,10 @@ public class SkipCommand implements TeacherCommand{
             sendMessage.setText("Предыдущий студент скипнут. Следующий: " + message);
             sendMessage.setReplyMarkup(creator.createInlineKeyBoardMarkUp());
             return sendMessage;
+        } catch (NullPointerException e) {
+            sendMessage.setText("Ура, вы всех завалили! Очередь пустая.");
+            sendMessage.setReplyMarkup(creator.createInlineKeyBoardMarkUp());
+            return sendMessage;
         } catch (Exception e) {
             e.printStackTrace();
             sendMessage.setText("Ой. Что-то пошло сильно не так. Напишите пж @true_47iq");

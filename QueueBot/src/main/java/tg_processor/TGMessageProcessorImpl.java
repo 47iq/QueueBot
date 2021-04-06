@@ -39,12 +39,12 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
         String message, username;
         long chat_id;
         if (update.hasCallbackQuery()) {
-            message = (ByteBuffer.wrap(update.getCallbackQuery().getData().getBytes(StandardCharsets.UTF_8))).toString();
-            username = (ByteBuffer.wrap(update.getCallbackQuery().getFrom().getUserName().getBytes(StandardCharsets.UTF_8))).toString();
+            message = update.getCallbackQuery().getData();
+            username = update.getCallbackQuery().getFrom().getUserName();
             chat_id = update.getCallbackQuery().getMessage().getChatId();
         } else {
-            message = (ByteBuffer.wrap(update.getMessage().getText().getBytes(StandardCharsets.UTF_8))).toString();
-            username = (ByteBuffer.wrap(update.getMessage().getFrom().getUserName().getBytes(StandardCharsets.UTF_8))).toString();
+            message = update.getMessage().getText();
+            username = update.getMessage().getFrom().getUserName();
             chat_id = update.getMessage().getChatId();
         }
         try {
