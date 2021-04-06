@@ -8,4 +8,6 @@ public interface TaskManager {
     void clearTasks(String username);
     SendMessage executeNextTask(String username, String arg, TelegramLongPollingBot bot);
     SendMessage startRegister(String username);
+    SendMessage startAccept(String username);
+    SendMessage startReject(String username);
 }

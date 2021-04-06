@@ -1,6 +1,7 @@
 package commands;
 
 import assist.AlertModule;
+import assist.TaskManager;
 import data.UserData;
 import data.UsersDB;
 import data.WaitingPoolDB;
@@ -26,14 +27,7 @@ public class AcceptCommand implements AdminCommand{
     }
 
     @Override
-    public SendMessage execute(String username, TelegramLongPollingBot bot) throws SQLException, TelegramApiException, UnsupportedEncodingException {
-        UserData data = waitingPoolDB.getData(username);
-        usersDB.register(username, data.getName(), data.getSurname(), data.getRole(), data.getGroup(),
-                data.getSubGroup(), data.getRole().equals("teacher") ? data.getSubject().toString() : null , data.getChat_id());
-        waitingPoolDB.delete(username);
-        alertModule.alertRegisterUser(username, bot);
-        SendMessage sendMessage = new SendMessage();
-        sendMessage.setText("Все, зарегал");
-        return sendMessage;
+    public SendMessage execute(String username, TelegramLongPollingBot bot, TaskManager taskManager) throws SQLException, TelegramApiException, UnsupportedEncodingException {
+        return taskManager.startAccept(username);
     }
 }

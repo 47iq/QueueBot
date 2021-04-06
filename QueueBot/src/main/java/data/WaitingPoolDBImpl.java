@@ -3,8 +3,11 @@ package data;
 import assist.ObjectFactory;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 public class WaitingPoolDBImpl implements WaitingPoolDB{
 
@@ -99,5 +102,10 @@ public class WaitingPoolDBImpl implements WaitingPoolDB{
     @Override
     public String getChatId(String username) {
         return String.valueOf(users.get(username).getChat_id());
+    }
+
+    @Override
+    public List<String> getUsers() {
+        return new ArrayList<>(users.keySet());
     }
 }

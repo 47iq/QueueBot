@@ -86,7 +86,12 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                                         "чтобы студенты могли следить за продвижением очереди.");
                                 return sendMessage;
                             } else {
-                                return ((QueueCommand) command).execute(username, inText[1]);
+                                try {
+                                    return ((QueueCommand) command).execute(username, inText[1]);
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    sendMessage.setText("Очередь пустая");
+                                    return sendMessage;
+                                }
                             }
                         else {
                             sendMessage.setText("Вы не зарегистрированы. Возможно, вы еще находитесь в пуле ожидания.");
@@ -95,7 +100,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                     }
                     case "/accept", "/reject" -> {
                         if (usersDB.isAdmin(username))
-                            return ((AdminCommand) command).execute(inText[1], bot);
+                            return ((AdminCommand) command).execute(username, bot, taskManager);
                         else {
                             sendMessage.setText("Это админская команда.");
                             return sendMessage;

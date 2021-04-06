@@ -2,6 +2,7 @@ import assist.*;
 import commands.*;
 import data.DBManager;
 import data.DBManagerImpl;
+import inlinekeyboard.ListedInlineKeyboardCreator;
 import inlinekeyboard.RoleInlineKeyboardCreator;
 import inlinekeyboard.SubGroupInlineKeyboardCreator;
 import inlinekeyboard.SubjectInlineKeyBoardCreator;
@@ -35,7 +36,8 @@ public class Main {
             manager.getQueueDB().setAlertModule(alertModule);
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             TaskManager taskManager = new TaskManagerImpl(manager.getWaitingPool(), alertModule, manager.getUsersDB(),
-                    new RoleInlineKeyboardCreator(), new SubGroupInlineKeyboardCreator(), new SubjectInlineKeyBoardCreator());
+                    new RoleInlineKeyboardCreator(), new SubGroupInlineKeyboardCreator(), new SubjectInlineKeyBoardCreator(),
+                    new ListedInlineKeyboardCreator());
             telegramBotsApi.registerBot(new QueueBot(new TGMessageProcessorImpl(getCommands(), manager.getUsersDB(), taskManager)));
         } catch (Exception e) {
             e.printStackTrace();

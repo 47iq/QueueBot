@@ -1,112 +1,120 @@
-commands/AcceptCommand.java
- commands.AcceptCommand
+inlinekeyboard/ListedKeyboardCreator.java
+ inlinekeyboard.ListedKeyboardCreator
 data/UserDataImpl.java
  data.UserDataImpl
-assist/tasks/SubmitTask.java
- assist.tasks.SubmitTask
+inlinekeyboard/SubGroupInlineKeyboardCreator.java
+ inlinekeyboard.SubGroupInlineKeyboardCreator
 data/TablesDBManager.java
  data.TablesDBManager
 data/UserData.java
  data.UserData
 commands/NextCommand.java
  commands.NextCommand
-assist/tasks/SurnameTask.java
- assist.tasks.SurnameTask
+data/AdminsDB.java
+ data.AdminsDB
 commands/FinishCommand.java
  commands.FinishCommand
-commands/RegisterCommand.java
- commands.RegisterCommand
+commands/StartCommand.java
+ commands.StartCommand
 data/UsersDB.java
  data.UsersDB
-data/UsersDBImpl.java
- data.UsersDBImpl
-assist/TaskManager.java
- assist.TaskManager
-commands/AuthCommand.java
- commands.AuthCommand
+tg_processor/TGMessageProcessor.java
+ tg_processor.TGMessageProcessor
+assist/AlertModule.java
+ assist.AlertModule
+inlinekeyboard/TeacherInlineKeyboardCreator.java
+ inlinekeyboard.TeacherInlineKeyboardCreator
 commands/QueueGetCommand.java
  commands.QueueGetCommand
 commands/QueueRegCommand.java
  commands.QueueRegCommand
 inlinekeyboard/SubjectInlineKeyBoardCreator.java
  inlinekeyboard.SubjectInlineKeyBoardCreator
-assist/ObjectFactoryImpl.java
- assist.ObjectFactoryImpl
-assist/AlertModuleImpl.java
- assist.AlertModuleImpl
-data/DBManagerImpl.java
- data.DBManagerImpl
-data/WaitingPoolDBImpl.java
- data.WaitingPoolDBImpl
+commands/SkipCommand.java
+ commands.SkipCommand
+commands/HelpCommand.java
+ commands.HelpCommand
+inlinekeyboard/RoleInlineKeyboardCreator.java
+ inlinekeyboard.RoleInlineKeyboardCreator
+data/QueueDBManager.java
+ data.QueueDBManager
 tg_processor/QueueBot.java
  tg_processor.QueueBot
 assist/UTF8Converter.java
  assist.UTF8Converter
 commands/Command.java
  commands.Command
-data/DBManager.java
- data.DBManager
+commands/QueueLeaveCommand.java
+ commands.QueueLeaveCommand
 inlinekeyboard/InlineKeyboardCreator.java
  inlinekeyboard.InlineKeyboardCreator
-assist/tasks/RoleTask.java
- assist.tasks.RoleTask
-assist/tasks/GroupTask.java
- assist.tasks.GroupTask
-data/QueueDBManagerImpl.java
- data.QueueDBManagerImpl
-commands/AdminCommand.java
- commands.AdminCommand
-data/AdminsDBImpl.java
- data.AdminsDBImpl
-commands/QueueCommand.java
- commands.QueueCommand
-assist/tasks/NameTask.java
- assist.tasks.NameTask
+commands/TeacherCommand.java
+ commands.TeacherCommand
 data/Subject.java
  data.Subject
  data.Subject$1
  data.Subject$2
-commands/TeacherCommand.java
- commands.TeacherCommand
-data/AdminsDB.java
- data.AdminsDB
-commands/StartCommand.java
- commands.StartCommand
-assist/tasks/SubjectTask.java
- assist.tasks.SubjectTask
-commands/HelpCommand.java
- commands.HelpCommand
-commands/QueueLeaveCommand.java
- commands.QueueLeaveCommand
-assist/AlertModule.java
- assist.AlertModule
-data/QueueDBManager.java
- data.QueueDBManager
-assist/tasks/SubGroupTask.java
- assist.tasks.SubGroupTask
-inlinekeyboard/RoleInlineKeyboardCreator.java
- inlinekeyboard.RoleInlineKeyboardCreator
-tg_processor/TGMessageProcessorImpl.java
- tg_processor.TGMessageProcessorImpl
-commands/SkipCommand.java
- commands.SkipCommand
-assist/tasks/Task.java
- assist.tasks.Task
-inlinekeyboard/TeacherInlineKeyboardCreator.java
- inlinekeyboard.TeacherInlineKeyboardCreator
-data/WaitingPoolDB.java
- data.WaitingPoolDB
-tg_processor/TGMessageProcessor.java
- tg_processor.TGMessageProcessor
-assist/ObjectFactory.java
- assist.ObjectFactory
+data/QueueDBManagerImpl.java
+ data.QueueDBManagerImpl
 commands/RejectCommand.java
  commands.RejectCommand
+data/AdminsDBImpl.java
+ data.AdminsDBImpl
+commands/QueueCommand.java
+ commands.QueueCommand
+commands/AcceptCommand.java
+ commands.AcceptCommand
+commands/AdminCommand.java
+ commands.AdminCommand
+assist/tasks/SubmitTask.java
+ assist.tasks.SubmitTask
+assist/tasks/NameTask.java
+ assist.tasks.NameTask
+assist/tasks/SurnameTask.java
+ assist.tasks.SurnameTask
+assist/tasks/AccUsernameTask.java
+ assist.tasks.AccUsernameTask
+commands/RegisterCommand.java
+ commands.RegisterCommand
+assist/tasks/SubjectTask.java
+ assist.tasks.SubjectTask
+assist/tasks/SubGroupTask.java
+ assist.tasks.SubGroupTask
+data/UsersDBImpl.java
+ data.UsersDBImpl
+assist/TaskManager.java
+ assist.TaskManager
+commands/AuthCommand.java
+ commands.AuthCommand
+assist/tasks/GroupTask.java
+ assist.tasks.GroupTask
+assist/ObjectFactoryImpl.java
+ assist.ObjectFactoryImpl
+assist/tasks/AcceptTask.java
+ assist.tasks.AcceptTask
+assist/AlertModuleImpl.java
+ assist.AlertModuleImpl
+data/DBManagerImpl.java
+ data.DBManagerImpl
+assist/tasks/Task.java
+ assist.tasks.Task
+data/WaitingPoolDBImpl.java
+ data.WaitingPoolDBImpl
+data/WaitingPoolDB.java
+ data.WaitingPoolDB
+data/DBManager.java
+ data.DBManager
+assist/ObjectFactory.java
+ assist.ObjectFactory
+assist/tasks/RoleTask.java
+ assist.tasks.RoleTask
 data/TablesDBManagerImpl.java
  data.TablesDBManagerImpl
 assist/TaskManagerImpl.java
  assist.TaskManagerImpl
+tg_processor/TGMessageProcessorImpl.java
+ tg_processor.TGMessageProcessorImpl
+inlinekeyboard/ListedInlineKeyboardCreator.java
+ inlinekeyboard.ListedInlineKeyboardCreator
 Main.java
  Main
-inlinekeyboard/SubGroupInlineKeyboardCreator.java
- inlinekeyboard.SubGroupInlineKeyboardCreator

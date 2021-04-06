@@ -1,11 +1,14 @@
 package assist;
 
+import assist.tasks.AccUsernameTask;
+import assist.tasks.AcceptTask;
 import assist.tasks.SurnameTask;
 import assist.tasks.Task;
 import data.UserDataImpl;
 import data.UsersDB;
 import data.WaitingPoolDB;
 import inlinekeyboard.InlineKeyboardCreator;
+import inlinekeyboard.ListedKeyboardCreator;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
@@ -28,14 +31,18 @@ public class TaskManagerImpl implements TaskManager{
 
     private final InlineKeyboardCreator subjectCreator;
 
+    private final ListedKeyboardCreator listCreator;
+
     public TaskManagerImpl(WaitingPoolDB waitingPoolDB, AlertModule alertModule, UsersDB usersDB, InlineKeyboardCreator roleCreator,
-                           InlineKeyboardCreator subGroupCreator, InlineKeyboardCreator subjectCreator) {
+                           InlineKeyboardCreator subGroupCreator, InlineKeyboardCreator subjectCreator,
+                           ListedKeyboardCreator listCreator) {
         this.waitingPoolDB = waitingPoolDB;
         this.alertModule = alertModule;
         this.usersDB = usersDB;
         this.roleCreator = roleCreator;
         this.subjectCreator = subjectCreator;
         this.subGroupCreator = subGroupCreator;
+        this.listCreator = listCreator;
     }
 
     @Override
@@ -73,6 +80,9 @@ public class TaskManagerImpl implements TaskManager{
             case "role" -> {
                 message.setReplyMarkup(roleCreator.createInlineKeyBoardMarkUp());
             }
+            case "accusername" -> {
+                message.setReplyMarkup(listCreator.createInlineKeyBoardMarkUp(waitingPoolDB.getUsers()));
+            }
         }
     }
 
@@ -84,5 +94,21 @@ public class TaskManagerImpl implements TaskManager{
         message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB));
         taskMap.put(username, task.next());
         return message;
+    }
+
+    @Override
+    public SendMessage startAccept(String username) {
+        taskMap.put(username, new AccUsernameTask(""));
+        SendMessage message = new SendMessage();
+        Task task = taskMap.get(username);
+        addKeyBoard(message, task);
+        message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB));
+        taskMap.put(username, task.next());
+        return message;
+    }
+
+    @Override
+    public SendMessage startReject(String username) {
+        return null;
     }
 }
