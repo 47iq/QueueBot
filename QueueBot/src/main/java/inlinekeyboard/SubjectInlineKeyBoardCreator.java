@@ -14,9 +14,9 @@ public class SubjectInlineKeyBoardCreator implements InlineKeyboardCreator, UTF8
         InlineKeyboardButton inlineKeyboardButton1 = new InlineKeyboardButton();
         InlineKeyboardButton inlineKeyboardButton2 = new InlineKeyboardButton();
 
-        inlineKeyboardButton1.setText(convert(convert("ОПД")));
+        inlineKeyboardButton1.setText(convert("ОПД"));
         inlineKeyboardButton1.setCallbackData("opd");
-        inlineKeyboardButton2.setText(convert(convert("Программирование")));
+        inlineKeyboardButton2.setText(convert("Программирование"));
         inlineKeyboardButton2.setCallbackData("programming");
         List<InlineKeyboardButton> keyboardButtonsRow1 = new ArrayList<>();
         keyboardButtonsRow1.add(inlineKeyboardButton1);

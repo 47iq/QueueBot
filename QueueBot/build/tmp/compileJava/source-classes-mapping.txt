@@ -1,23 +1,41 @@
+assist/tasks/GetQueueSubjTask.java
+ assist.tasks.GetQueueSubjTask
 commands/AcceptCommand.java
  commands.AcceptCommand
 data/UserDataImpl.java
  data.UserDataImpl
+assist/tasks/LeaveTask.java
+ assist.tasks.LeaveTask
 assist/tasks/SubmitTask.java
  assist.tasks.SubmitTask
 data/TablesDBManager.java
  data.TablesDBManager
+assist/tasks/QueueTask.java
+ assist.tasks.QueueTask
 data/UserData.java
  data.UserData
-commands/NextCommand.java
- commands.NextCommand
+assist/TaskManagerImpl.java
+ assist.TaskManagerImpl
 assist/tasks/SurnameTask.java
  assist.tasks.SurnameTask
+data/TablesDBManagerImpl.java
+ data.TablesDBManagerImpl
 commands/FinishCommand.java
  commands.FinishCommand
+assist/tasks/QueueSubjTask.java
+ assist.tasks.QueueSubjTask
+inlinekeyboard/StudentInlineKeyboardCreator.java
+ inlinekeyboard.StudentInlineKeyboardCreator
 commands/RegisterCommand.java
  commands.RegisterCommand
+assist/tasks/LeaveSubjTask.java
+ assist.tasks.LeaveSubjTask
 data/UsersDB.java
  data.UsersDB
+assist/tasks/GetQueueTask.java
+ assist.tasks.GetQueueTask
+assist/tasks/RejectTask.java
+ assist.tasks.RejectTask
 data/UsersDBImpl.java
  data.UsersDBImpl
 assist/TaskManager.java
@@ -30,6 +48,8 @@ commands/QueueRegCommand.java
  commands.QueueRegCommand
 inlinekeyboard/SubjectInlineKeyBoardCreator.java
  inlinekeyboard.SubjectInlineKeyBoardCreator
+inlinekeyboard/ListedInlineKeyboardCreator.java
+ inlinekeyboard.ListedInlineKeyboardCreator
 assist/ObjectFactoryImpl.java
  assist.ObjectFactoryImpl
 assist/AlertModuleImpl.java
@@ -38,8 +58,10 @@ data/DBManagerImpl.java
  data.DBManagerImpl
 data/WaitingPoolDBImpl.java
  data.WaitingPoolDBImpl
-tg_processor/QueueBot.java
- tg_processor.QueueBot
+assist/tasks/RejectUsernameTask.java
+ assist.tasks.RejectUsernameTask
+tg_processor/TGMessageProcessor.java
+ tg_processor.TGMessageProcessor
 assist/UTF8Converter.java
  assist.UTF8Converter
 commands/Command.java
@@ -48,6 +70,8 @@ data/DBManager.java
  data.DBManager
 inlinekeyboard/InlineKeyboardCreator.java
  inlinekeyboard.InlineKeyboardCreator
+inlinekeyboard/AdminInlineKeyboardCreator.java
+ inlinekeyboard.AdminInlineKeyboardCreator
 assist/tasks/RoleTask.java
  assist.tasks.RoleTask
 assist/tasks/GroupTask.java
@@ -70,10 +94,14 @@ commands/TeacherCommand.java
  commands.TeacherCommand
 data/AdminsDB.java
  data.AdminsDB
-commands/StartCommand.java
- commands.StartCommand
+assist/tasks/AccUsernameTask.java
+ assist.tasks.AccUsernameTask
+Main.java
+ Main
 assist/tasks/SubjectTask.java
  assist.tasks.SubjectTask
+inlinekeyboard/ListedKeyboardCreator.java
+ inlinekeyboard.ListedKeyboardCreator
 commands/HelpCommand.java
  commands.HelpCommand
 commands/QueueLeaveCommand.java
@@ -88,25 +116,31 @@ inlinekeyboard/RoleInlineKeyboardCreator.java
  inlinekeyboard.RoleInlineKeyboardCreator
 tg_processor/TGMessageProcessorImpl.java
  tg_processor.TGMessageProcessorImpl
-commands/SkipCommand.java
- commands.SkipCommand
+tg_processor/QueueBot.java
+ tg_processor.QueueBot
+inlinekeyboard/KeyboardCreator.java
+ inlinekeyboard.KeyboardCreator
+assist/tasks/AcceptTask.java
+ assist.tasks.AcceptTask
 assist/tasks/Task.java
  assist.tasks.Task
-inlinekeyboard/TeacherInlineKeyboardCreator.java
- inlinekeyboard.TeacherInlineKeyboardCreator
-data/WaitingPoolDB.java
- data.WaitingPoolDB
-tg_processor/TGMessageProcessor.java
- tg_processor.TGMessageProcessor
-assist/ObjectFactory.java
- assist.ObjectFactory
 commands/RejectCommand.java
  commands.RejectCommand
-data/TablesDBManagerImpl.java
- data.TablesDBManagerImpl
-assist/TaskManagerImpl.java
- assist.TaskManagerImpl
-Main.java
- Main
+data/WaitingPoolDB.java
+ data.WaitingPoolDB
 inlinekeyboard/SubGroupInlineKeyboardCreator.java
  inlinekeyboard.SubGroupInlineKeyboardCreator
+assist/ObjectFactory.java
+ assist.ObjectFactory
+assist/Win1251Converter.java
+ assist.Win1251Converter
+commands/SkipCommand.java
+ commands.SkipCommand
+commands/StartCommand.java
+ commands.StartCommand
+commands/NextCommand.java
+ commands.NextCommand
+inlinekeyboard/KeyboardCreatorImpl.java
+ inlinekeyboard.KeyboardCreatorImpl
+inlinekeyboard/TeacherInlineKeyboardCreator.java
+ inlinekeyboard.TeacherInlineKeyboardCreator

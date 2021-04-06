@@ -3,6 +3,7 @@ package tg_processor;
 import assist.TaskManager;
 import commands.*;
 import data.UsersDB;
+import inlinekeyboard.KeyboardCreator;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -52,7 +53,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
             if(command != null)
                 switch (inText[0]) {
                     case "/register" -> {
-                        return ((AuthCommand) command).execute(username, taskManager);
+                        return ((AuthCommand) command).execute(username, taskManager, chat_id);
                     }
                     case "/finish", "/begin", "/skip", "/next" -> {
                         if (usersDB.isTeacher(username))
@@ -68,7 +69,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                     case "/queue", "/leave" -> {
                         if (checkAccess(username))
                             if (!usersDB.isTeacher(username))
-                                return ((QueueCommand) command).execute(username, inText[1]);
+                                return ((QueueCommand) command).execute(username, taskManager, chat_id);
                             else {
                                 sendMessage.setText("Вы же препод... Зачем вам записываться в очередь...");
                                 return sendMessage;
@@ -86,7 +87,12 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                                         "чтобы студенты могли следить за продвижением очереди.");
                                 return sendMessage;
                             } else {
-                                return ((QueueCommand) command).execute(username, inText[1]);
+                                try {
+                                    return ((QueueCommand) command).execute(username, taskManager, chat_id);
+                                } catch (ArrayIndexOutOfBoundsException e) {
+                                    sendMessage.setText("Очередь пустая");
+                                    return sendMessage;
+                                }
                             }
                         else {
                             sendMessage.setText("Вы не зарегистрированы. Возможно, вы еще находитесь в пуле ожидания.");
@@ -95,7 +101,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                     }
                     case "/accept", "/reject" -> {
                         if (usersDB.isAdmin(username))
-                            return ((AdminCommand) command).execute(inText[1], bot);
+                            return ((AdminCommand) command).execute(username, bot, taskManager, chat_id);
                         else {
                             sendMessage.setText("Это админская команда.");
                             return sendMessage;
@@ -107,7 +113,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
                         return sendMessage;
                     }
                 }
-            return checkForTasks(sendMessage, username, inText[0], bot);
+            return checkForTasks(sendMessage, username, inText[0], bot, chat_id);
         } catch (Exception e) {
             e.printStackTrace();
             sendMessage.setText("Ой.. Что-то пошло не так.");
@@ -115,9 +121,9 @@ public class TGMessageProcessorImpl implements TGMessageProcessor{
         }
     }
 
-    private SendMessage checkForTasks(SendMessage sendMessage, String username, String argument, TelegramLongPollingBot bot) {
+    private SendMessage checkForTasks(SendMessage sendMessage, String username, String argument, TelegramLongPollingBot bot, long chat_id) {
         if(taskManager.hasRunningTasks(username)) {
-            sendMessage = taskManager.executeNextTask(username, argument, bot);
+            sendMessage = taskManager.executeNextTask(username, argument, bot, chat_id);
         }
         else
             sendMessage.setText("Я не умею на такое отвечать:( Посмотрите справку по командам: /help.");
