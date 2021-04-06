@@ -28,6 +28,8 @@ commands/QueueGetCommand.java
  commands.QueueGetCommand
 commands/QueueRegCommand.java
  commands.QueueRegCommand
+inlinekeyboard/SubjectInlineKeyBoardCreator.java
+ inlinekeyboard.SubjectInlineKeyBoardCreator
 assist/ObjectFactoryImpl.java
  assist.ObjectFactoryImpl
 assist/AlertModuleImpl.java
@@ -82,6 +84,8 @@ data/QueueDBManager.java
  data.QueueDBManager
 assist/tasks/SubGroupTask.java
  assist.tasks.SubGroupTask
+inlinekeyboard/RoleInlineKeyboardCreator.java
+ inlinekeyboard.RoleInlineKeyboardCreator
 tg_processor/TGMessageProcessorImpl.java
  tg_processor.TGMessageProcessorImpl
 commands/SkipCommand.java
@@ -92,6 +96,8 @@ inlinekeyboard/TeacherInlineKeyboardCreator.java
  inlinekeyboard.TeacherInlineKeyboardCreator
 data/WaitingPoolDB.java
  data.WaitingPoolDB
+tg_processor/TGMessageProcessor.java
+ tg_processor.TGMessageProcessor
 assist/ObjectFactory.java
  assist.ObjectFactory
 commands/RejectCommand.java
@@ -100,7 +106,7 @@ data/TablesDBManagerImpl.java
  data.TablesDBManagerImpl
 assist/TaskManagerImpl.java
  assist.TaskManagerImpl
-tg_processor/TGMessageProcessor.java
- tg_processor.TGMessageProcessor
 Main.java
  Main
+inlinekeyboard/SubGroupInlineKeyboardCreator.java
+ inlinekeyboard.SubGroupInlineKeyboardCreator
