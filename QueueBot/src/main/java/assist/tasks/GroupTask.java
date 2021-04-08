@@ -19,7 +19,7 @@ public class GroupTask implements Task{
     public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
                           TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) {
         userData.setRole(argument);
-        return "Введите, пожалуйста номер вашей группы:";
+        return "Введите, пожалуйста номер вашей группы(или выберите одну из зарегистрированных):";
     }
 
     @Override

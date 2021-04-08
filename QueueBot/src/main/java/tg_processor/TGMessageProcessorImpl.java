@@ -11,7 +11,6 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.nio.ByteBuffer;
-import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Map;
 
@@ -108,7 +107,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
                     }
                 }
                 send(sendMessage, chat_id, bot);
-                if(sendMessage.getReplyMarkup() == null && !inText[0].equals("/register")) {
+                if (checkAccess(username) && sendMessage.getReplyMarkup() == null && !inText[0].equals("/register")) {
                     SendMessage sendMessage2 = new SendMessage();
                     sendMessage2.setChatId(String.valueOf(chat_id));
                     sendMessage2.setText(convert("Выберите действие:"));
@@ -116,8 +115,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
                     sendMessage2.setReplyMarkup(markup);
                     bot.execute(sendMessage2);
                 }
-            }
-            else {
+            } else {
                 sendMessage = checkForTasks(sendMessage, username, inText[0], bot, chat_id);
                 send(sendMessage, chat_id, bot);
             }
@@ -129,10 +127,9 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
     }
 
     private SendMessage checkForTasks(SendMessage sendMessage, String username, String argument, TelegramLongPollingBot bot, long chat_id) {
-        if(taskManager.hasRunningTasks(username)) {
+        if (taskManager.hasRunningTasks(username)) {
             sendMessage = taskManager.executeNextTask(username, argument, bot, chat_id);
-        }
-        else
+        } else
             sendMessage.setText("Я не умею на такое отвечать:( Посмотрите справку по командам: /help.");
         return sendMessage;
     }

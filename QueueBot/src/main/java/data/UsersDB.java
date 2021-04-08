@@ -3,6 +3,7 @@ package data;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public interface UsersDB {
     void register(String username, String name, String surname, String role, int group, int subgroup,
@@ -17,4 +18,5 @@ public interface UsersDB {
     long getChatId(String username);
     Long getAdminChatId(int group);
     String getRole(String username);
+    List<String> getGroups();
 }

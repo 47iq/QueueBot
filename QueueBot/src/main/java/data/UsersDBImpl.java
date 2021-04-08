@@ -4,10 +4,7 @@ import assist.ObjectFactory;
 import assist.Win1251Converter;
 
 import java.sql.*;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class UsersDBImpl implements UsersDB, Win1251Converter {
 
@@ -18,6 +15,8 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
     private final Set<String> admins = new HashSet<>();
 
     private final Set<String> teachers = new HashSet<>();
+
+    private final Set<String> groups = new HashSet<>();
 
     private final ObjectFactory factory;
 
@@ -88,6 +87,7 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
             admins.add(username);
         if (role.equals("teacher"))
             teachers.add(username);
+        groups.add(String.valueOf(studyGroup));
     }
 
     @Override
@@ -147,5 +147,11 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
             return null;
         else
             return users.get(username).getRole();
+    }
+
+
+    @Override
+    public List<String> getGroups() {
+        return new ArrayList<>(groups);
     }
 }

@@ -23,6 +23,8 @@ public class KeyboardCreatorImpl implements KeyboardCreator{
     @Override
     public InlineKeyboardMarkup getInlineKeyboardMarkup(String username) {
         String role = usersDB.getRole(username);
+        if(role == null)
+            return null;
         switch (role) {
             case "admin" -> {
                 return adminInlineKeyboardCreator.createInlineKeyBoardMarkUp();

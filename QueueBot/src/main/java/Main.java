@@ -45,6 +45,7 @@ public class Main {
         Map<String, Command> commandMap = new HashMap<>();
         commandMap.put("/register", new RegisterCommand(manager.getWaitingPool(), alertModule));
         commandMap.put("/help", new HelpCommand());
+        commandMap.put("/start", new HelpCommand());
         commandMap.put("/queue", new QueueRegCommand(manager.getQueueDB()));
         commandMap.put("/leave", new QueueLeaveCommand(manager.getQueueDB()));
         commandMap.put("/getqueue", new QueueGetCommand(manager.getQueueDB(), manager.getUsersDB()));

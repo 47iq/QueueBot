@@ -75,6 +75,9 @@ public class TaskManagerImpl implements TaskManager{
             case "subgroup" -> {
                 message.setReplyMarkup(subGroupCreator.createInlineKeyBoardMarkUp());
             }
+            case "group" -> {
+                message.setReplyMarkup(listCreator.createInlineKeyBoardMarkUp(usersDB.getGroups()));
+            }
             case "subject", "getqueuesubj", "queuesubj", "leavesubj" -> {
                 message.setReplyMarkup(subjectCreator.createInlineKeyBoardMarkUp());
             }

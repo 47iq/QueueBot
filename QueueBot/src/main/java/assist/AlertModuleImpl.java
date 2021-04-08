@@ -3,6 +3,7 @@ package assist;
 import data.Subject;
 import data.UsersDB;
 import data.WaitingPoolDB;
+import inlinekeyboard.KeyboardCreatorImpl;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -31,16 +32,18 @@ public class AlertModuleImpl implements AlertModule, UTF8Converter {
         SendMessage message = new SendMessage();
         int group = waitingPoolDB.getGroup(username);
         Long chat_id = usersDB.getAdminChatId(group);
-        String text = "Привет, там " + username + " из твоей группы хочет зарегаться. Его данные: " + waitingPoolDB.getInfo(username);
+        String text = convert("Привет, там ") + username + convert(" из твоей группы хочет зарегаться. Его данные: ") + waitingPoolDB.getInfo(username);
         message.setChatId(String.valueOf(chat_id));
-        message.setText(convert(text));
+        //message.setText(convert(text));
+        message.setText(text);
         bot.execute(message);
     }
 
     @Override
     public void alertRegisterUser(String username, TelegramLongPollingBot bot) throws TelegramApiException, UnsupportedEncodingException {
-        String text = "Ура. Ваша заявка одобрена.";
+        String text = "Ура. Ваша заявка одобрена. Выберите действие:";
         SendMessage message = getMessage(username, text);
+        message.setReplyMarkup(new KeyboardCreatorImpl(usersDB).getInlineKeyboardMarkup(username));
         bot.execute(message);
     }
 
