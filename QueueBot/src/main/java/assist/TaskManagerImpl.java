@@ -5,6 +5,9 @@ import data.QueueDBManager;
 import data.UserDataImpl;
 import data.UsersDB;
 import data.WaitingPoolDB;
+import exceptions.FatalError;
+import exceptions.InvalidGroupException;
+import exceptions.InvalidRoleException;
 import inlinekeyboard.InlineKeyboardCreator;
 import inlinekeyboard.ListedKeyboardCreator;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -13,7 +16,7 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import java.util.HashMap;
 import java.util.Map;
 
-public class TaskManagerImpl implements TaskManager{
+public class TaskManagerImpl implements TaskManager {
 
     private final Map<String, Task> taskMap = new HashMap<>();
 
@@ -57,17 +60,22 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
-    public SendMessage executeNextTask(String username, String arg, TelegramLongPollingBot bot, long chat_id) {
-        Task task = taskMap.get(username);
-        String ans = task.execute(username, arg, waitingPoolDB, alertModule, bot, usersDB, chat_id, manager);
+    public SendMessage executeNextTask(String username, String arg, TelegramLongPollingBot bot, long chat_id) throws FatalError{
         SendMessage message = new SendMessage();
-        message.setText(ans);
-        addKeyBoard(message, task);
-        if(task.next() != null)
-            taskMap.put(username, task.next());
-        else
-            clearTasks(username);
-        return message;
+        try {
+            Task task = taskMap.get(username);
+            String ans = task.execute(username, arg, waitingPoolDB, alertModule, bot, usersDB, chat_id, manager);
+            message.setText(ans);
+            addKeyBoard(message, task);
+            if(task.next() != null)
+                taskMap.put(username, task.next());
+            else
+                clearTasks(username);
+            return message;
+        } catch (InvalidRoleException | InvalidGroupException e) {
+            message.setText(e.getMessage());
+            return message;
+        }
     }
 
     private void addKeyBoard(SendMessage message, Task task) {
@@ -91,51 +99,62 @@ public class TaskManagerImpl implements TaskManager{
     }
 
     @Override
-    public SendMessage startRegister(String username, long chat_id) {
-        taskMap.put(username, new SurnameTask(new UserDataImpl()));
-        SendMessage message = new SendMessage();
-        Task task = taskMap.get(username);
-        message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB, chat_id, manager));
-        taskMap.put(username, task.next());
-        return message;
+    public SendMessage startRegister(String username, long chat_id) throws FatalError{
+        try {
+            taskMap.put(username, new SurnameTask(new UserDataImpl()));
+            SendMessage message = new SendMessage();
+            Task task = taskMap.get(username);
+            message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB, chat_id, manager));
+            taskMap.put(username, task.next());
+            return message;
+        } catch (InvalidRoleException | InvalidGroupException ignored) {
+            //UNREACHABLE
+            return null;
+        }
     }
 
     @Override
-    public SendMessage startAccept(String username, long chat_id) {
+    public SendMessage startAccept(String username, long chat_id) throws FatalError {
         taskMap.put(username, new AccUsernameTask(""));
-        return getSendMessage(username, chat_id);
+        return getStartingSendMessage(username, chat_id);
     }
 
     @Override
-    public SendMessage startReject(String username, long chat_id) {
+    public SendMessage startReject(String username, long chat_id) throws FatalError {
         taskMap.put(username, new RejectUsernameTask(""));
-        return getSendMessage(username, chat_id);
+        return getStartingSendMessage(username, chat_id);
     }
 
     @Override
-    public SendMessage startLeave(String username, long chat_id) {
+    public SendMessage startLeave(String username, long chat_id) throws FatalError {
         taskMap.put(username, new LeaveSubjTask(""));
-        return getSendMessage(username, chat_id);
+        return getStartingSendMessage(username, chat_id);
     }
 
     @Override
-    public SendMessage startQueue(String username, long chat_id) {
+    public SendMessage startQueue(String username, long chat_id) throws FatalError {
         taskMap.put(username, new QueueSubjTask(""));
-        return getSendMessage(username, chat_id);
+        return getStartingSendMessage(username, chat_id);
     }
 
     @Override
-    public SendMessage startGetQueue(String username, long chat_id) {
+    public SendMessage startGetQueue(String username, long chat_id) throws FatalError {
         taskMap.put(username, new GetQueueSubjTask(""));
-        return getSendMessage(username, chat_id);
+        return getStartingSendMessage(username, chat_id);
     }
 
-    private SendMessage getSendMessage(String username, long chat_id) {
-        SendMessage message = new SendMessage();
-        Task task = taskMap.get(username);
-        addKeyBoard(message, task);
-        message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB, chat_id, manager));
-        taskMap.put(username, task.next());
-        return message;
+    private SendMessage getStartingSendMessage(String username, long chat_id) throws FatalError{
+        try {
+            SendMessage message = new SendMessage();
+            Task task = taskMap.get(username);
+            addKeyBoard(message, task);
+            message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB, chat_id, manager));
+            taskMap.put(username, task.next());
+            return message;
+        } catch (InvalidRoleException | InvalidGroupException ignored){
+            //UNREACHABLE
+            return null;
+        }
+
     }
 }

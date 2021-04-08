@@ -5,6 +5,7 @@ import data.QueueDBManager;
 import data.UserData;
 import data.UsersDB;
 import data.WaitingPoolDB;
+import exceptions.FatalError;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
@@ -18,13 +19,13 @@ public class RejectTask implements Task{
 
     @Override
     public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
-                          TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager){
+                          TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) throws FatalError {
         try {
             waitingPoolDB.delete(argument);
             alertModule.alertRejectUser(argument, bot);
             return "F челу";
         } catch (Exception e) {
-            return "Что-то пошло не так... Напишите @true47_iq";
+            throw new FatalError();
         }
     }
 

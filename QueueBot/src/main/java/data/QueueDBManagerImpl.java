@@ -33,7 +33,7 @@ public class QueueDBManagerImpl implements QueueDBManager{
     @Override
     public void add(String username, Subject subject) throws SQLException {
 
-        int group = usersDB.getGroup(username);
+        String group = usersDB.getGroup(username);
         int subGroup = usersDB.getSubGroup(username);
         String tableName = getTableName(username, subject);
         if(!tablesDBManager.contains(tableName)) {
@@ -90,7 +90,7 @@ public class QueueDBManagerImpl implements QueueDBManager{
     }
 
     @Override
-    public void createAll(int group) throws SQLException {
+    public void createAll(String group) throws SQLException {
         create(Subject.OPD, group, 1);
         create(Subject.OPD, group, 2);
         create(Subject.PROGRAMMING, group, 1);
@@ -98,16 +98,16 @@ public class QueueDBManagerImpl implements QueueDBManager{
     }
 
     @Override
-    public void create(Subject subject, int group, int subgroup) throws SQLException {
-        String tableName = subject + String.valueOf(group) + "_" + String.valueOf(subgroup);
+    public void create(Subject subject, String group, int subgroup) throws SQLException {
+        String tableName = subject + "_" + group + "_" + subgroup;
         String createTableSQL = "CREATE TABLE IF NOT EXISTS " + tableName + "(username TEXT primary key, priority serial)";
         PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL);
         preparedStatement.execute();
     }
 
     @Override
-    public void clear(Subject subject, int group, int subgroup) throws SQLException {
-        String tableName = subject + String.valueOf(group) + "_" + String.valueOf(subgroup);
+    public void clear(Subject subject, String group, int subgroup) throws SQLException {
+        String tableName = subject + "_"+ group + "_" + subgroup;
         String clearTableSQL = "DELETE  FROM " + tableName;
         PreparedStatement preparedStatement = connection.prepareStatement(clearTableSQL);
         preparedStatement.execute();
@@ -156,6 +156,6 @@ public class QueueDBManagerImpl implements QueueDBManager{
     }
 
     private String getTableName(String username, Subject subject) {
-        return subject.toString() + String.valueOf(usersDB.getGroup(username)) + "_" + String.valueOf(usersDB.getSubGroup(username));
+        return subject.toString() + "_" + usersDB.getGroup(username) + "_" + usersDB.getSubGroup(username);
     }
 }

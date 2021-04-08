@@ -12,7 +12,7 @@ public interface ObjectFactory {
 
     QueueDBManager getQueueData(Connection connection, UsersDB users, TablesDBManager tablesDBManager);
 
-    UserData getUsersData(String name, String surname, String role, int studyGroup, int subGroup, String subject, long chat_id);
+    UserData getUsersData(String name, String surname, String role, String studyGroup, int subGroup, String subject, long chat_id);
 
     TablesDBManager getTablesDB(Connection connection, ObjectFactory factory) throws SQLException;
 

@@ -4,11 +4,13 @@ import assist.TaskManager;
 import assist.UTF8Converter;
 import commands.*;
 import data.UsersDB;
+import exceptions.FatalError;
 import inlinekeyboard.KeyboardCreator;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
+import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.StandardCharsets;
@@ -119,7 +121,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
                 sendMessage = checkForTasks(sendMessage, username, inText[0], bot, chat_id);
                 send(sendMessage, chat_id, bot);
             }
-        } catch (Exception e) {
+        } catch (FatalError | TelegramApiException e) {
             e.printStackTrace();
             sendMessage.setText("Ой.. Что-то пошло не так.");
             send(sendMessage, chat_id, bot);
@@ -127,8 +129,13 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
     }
 
     private SendMessage checkForTasks(SendMessage sendMessage, String username, String argument, TelegramLongPollingBot bot, long chat_id) {
+
         if (taskManager.hasRunningTasks(username)) {
-            sendMessage = taskManager.executeNextTask(username, argument, bot, chat_id);
+            try {
+                sendMessage = taskManager.executeNextTask(username, argument, bot, chat_id);
+            } catch (FatalError e) {
+                sendMessage.setText(e.getMessage());
+            }
         } else
             sendMessage.setText("Я не умею на такое отвечать:( Посмотрите справку по командам: /help.");
         return sendMessage;

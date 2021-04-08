@@ -3,6 +3,7 @@ package commands;
 import assist.AlertModule;
 import assist.TaskManager;
 import data.WaitingPoolDB;
+import exceptions.FatalError;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
@@ -17,7 +18,7 @@ public class RegisterCommand implements AuthCommand{
     }
 
     @Override
-    public SendMessage execute(String username, TaskManager taskManager, long chat_id) {
+    public SendMessage execute(String username, TaskManager taskManager, long chat_id) throws FatalError {
         return taskManager.startRegister(username, chat_id);
     }
 }

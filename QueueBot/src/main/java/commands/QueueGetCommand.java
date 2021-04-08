@@ -4,6 +4,7 @@ import assist.TaskManager;
 import data.QueueDBManager;
 import data.Subject;
 import data.UsersDB;
+import exceptions.FatalError;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.nio.ByteBuffer;
@@ -23,7 +24,7 @@ public class QueueGetCommand implements QueueCommand{
     }
 
     @Override
-    public SendMessage execute(String username, TaskManager taskManager, long chat_id) {
+    public SendMessage execute(String username, TaskManager taskManager, long chat_id) throws FatalError {
         return  taskManager.startGetQueue(username, chat_id);
     }
 }

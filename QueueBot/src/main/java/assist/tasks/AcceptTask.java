@@ -5,6 +5,7 @@ import data.QueueDBManager;
 import data.UserData;
 import data.UsersDB;
 import data.WaitingPoolDB;
+import exceptions.FatalError;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -22,7 +23,7 @@ public class AcceptTask implements Task{
 
     @Override
     public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
-                          TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager){
+                          TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) throws FatalError {
         try {
             UserData data = waitingPoolDB.getData(argument);
             usersDB.register(argument, data.getName(), data.getSurname(), data.getRole(), data.getGroup(),
@@ -30,9 +31,11 @@ public class AcceptTask implements Task{
             waitingPoolDB.delete(argument);
             alertModule.alertRegisterUser(argument, bot);
             return "Все ок, зарегал";
+        } catch (SQLException e) {
+            return "Что-то пошло не так. Возможно, пользователь уже зарегистрирован.";
         } catch (Exception e) {
             e.printStackTrace();
-            return "Ой... Что-то пошло не так. Возможно, пользователь уже зарегистрирован.";
+            throw new FatalError();
         }
     }
 

@@ -37,7 +37,7 @@ public class WaitingPoolDBImpl implements WaitingPoolDB, Win1251Converter {
             String name = resultSet.getString(2);
             String surname = resultSet.getString(3);
             String role = resultSet.getString(4);
-            int group = resultSet.getInt(5);
+            String group = resultSet.getString(5);
             int subGroup = resultSet.getInt(6);
             String subject = convert(resultSet.getString(7));
             long chat_id = resultSet.getLong(8);
@@ -48,13 +48,13 @@ public class WaitingPoolDBImpl implements WaitingPoolDB, Win1251Converter {
     private void create() throws SQLException {
         String createTableSQL = "CREATE TABLE IF NOT EXISTS  waiting_pool " +
                 "(username TEXT primary key, name TEXT not null , surname TEXT not null, role varchar not null, " +
-                "studyGroup int not null, subGroup int not null, subject varchar, chat_id bigint)";
+                "studyGroup TEXT not null, subGroup int not null, subject varchar, chat_id bigint)";
         PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL);
         preparedStatement.execute();
     }
 
     @Override
-    public void register(String username, String name, String surname, String role, int studyGroup,
+    public void register(String username, String name, String surname, String role, String studyGroup,
                          int subGroup, String subject, long chat_id) throws SQLException {
         String sql = "INSERT INTO waiting_pool (username, name, surname, role, studyGroup, subGroup, subject, chat_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
@@ -63,7 +63,7 @@ public class WaitingPoolDBImpl implements WaitingPoolDB, Win1251Converter {
         preparedStatement.setString(2, name);
         preparedStatement.setString(3, surname);
         preparedStatement.setString(4, role);
-        preparedStatement.setInt(5, studyGroup);
+        preparedStatement.setString(5, studyGroup);
         preparedStatement.setInt(6, subGroup);
         if(subject != null)
             preparedStatement.setString(7, subject);
@@ -84,7 +84,7 @@ public class WaitingPoolDBImpl implements WaitingPoolDB, Win1251Converter {
         users.remove(username);
     }
 
-    private void addToCache(String username, String name, String surname, String role, int studyGroup,
+    private void addToCache(String username, String name, String surname, String role, String studyGroup,
                             int subGroup, String subject, long chat_id) {
         //System.out.println(factory.getUsersData(name, surname, role, studyGroup, subGroup, subject, chat_id));
         users.put(username, factory.getUsersData(name, surname, role, studyGroup, subGroup, subject, chat_id));
@@ -112,7 +112,7 @@ public class WaitingPoolDBImpl implements WaitingPoolDB, Win1251Converter {
     }
 
     @Override
-    public int getGroup(String username) {
+    public String getGroup(String username) {
         return users.get(username).getGroup();
     }
 }

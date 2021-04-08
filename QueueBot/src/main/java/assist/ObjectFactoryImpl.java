@@ -22,7 +22,7 @@ public class ObjectFactoryImpl implements ObjectFactory {
     }
 
     @Override
-    public UserData getUsersData(String name, String surname, String role, int studyGroup, int subGroup, String subject, long chat_id) {
+    public UserData getUsersData(String name, String surname, String role, String studyGroup, int subGroup, String subject, long chat_id) {
         return new UserDataImpl(name, surname, role, studyGroup, subGroup, subject, chat_id);
     }
 

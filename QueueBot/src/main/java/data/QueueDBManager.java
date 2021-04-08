@@ -14,9 +14,9 @@ public interface QueueDBManager {
     String skipStudent(String username, TelegramLongPollingBot bot) throws SQLException, UnsupportedEncodingException, TelegramApiException;
     String startQueue(String username, TelegramLongPollingBot bot) throws SQLException, UnsupportedEncodingException, TelegramApiException;
     void finishQueue(String username) throws SQLException;
-    void createAll(int group) throws SQLException;
-    void create(Subject subject, int group, int subgroup) throws SQLException;
-    void clear(Subject subject, int group, int subgroup) throws SQLException;
+    void createAll(String group) throws SQLException;
+    void create(Subject subject, String group, int subgroup) throws SQLException;
+    void clear(Subject subject, String group, int subgroup) throws SQLException;
     List<String> getQueue(Subject subject, String username) throws SQLException;
     void remove(String username, Subject forName) throws SQLException;
     void setAlertModule(AlertModule alertModule);

@@ -5,6 +5,7 @@ import data.QueueDBManager;
 import data.Subject;
 import data.UsersDB;
 import data.WaitingPoolDB;
+import exceptions.FatalError;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 
 import java.nio.ByteBuffer;
@@ -24,16 +25,18 @@ public class GetQueueTask implements Task{
     @Override
     public String execute(String username, String argument, WaitingPoolDB waitingPoolDB,
                           AlertModule alertModule, TelegramLongPollingBot bot,
-                          UsersDB usersDB, long chat_id, QueueDBManager manager) {
+                          UsersDB usersDB, long chat_id, QueueDBManager manager) throws FatalError {
         subject = argument;
         try {
             List<String> list = manager.getQueue(Subject.forName(subject), username);
+            if(list.isEmpty())
+                return "Очередь пуста.";
             String result = list.stream().map(usersDB::getName).reduce((x, y)->(x + "\n" + y)).get();
             Charset charset = Charset.forName("windows-1251");
             return charset.decode(ByteBuffer.wrap(result.getBytes(StandardCharsets.UTF_8))).toString();
         } catch (Exception e) {
             e.printStackTrace();
-            return ("Ой. Что-то пошло сильно не так. Напишите пж @true_47iq");
+            throw new FatalError();
         }
     }
 

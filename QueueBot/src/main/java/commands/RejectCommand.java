@@ -4,6 +4,7 @@ import assist.AlertModule;
 import assist.TaskManager;
 import data.UsersDB;
 import data.WaitingPoolDB;
+import exceptions.FatalError;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
@@ -26,7 +27,7 @@ public class RejectCommand implements AdminCommand{
     }
 
     @Override
-    public SendMessage execute(String username, TelegramLongPollingBot bot, TaskManager taskManager, long chat_id) throws SQLException, TelegramApiException, UnsupportedEncodingException {
+    public SendMessage execute(String username, TelegramLongPollingBot bot, TaskManager taskManager, long chat_id) throws  FatalError {
         return taskManager.startReject(username, chat_id);
     }
 }

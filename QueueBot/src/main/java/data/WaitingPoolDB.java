@@ -4,12 +4,12 @@ import java.sql.SQLException;
 import java.util.List;
 
 public interface WaitingPoolDB {
-    void register(String username, String name, String surname, String role, int group,
+    void register(String username, String name, String surname, String role, String group,
                   int subGroup, String subject, long chat_id) throws SQLException;
     String getInfo(String username);
     UserData getData(String username);
     void delete(String username) throws SQLException;
     String getChatId(String username);
     List<String> getUsers();
-    int getGroup(String username);
+    String getGroup(String username);
 }

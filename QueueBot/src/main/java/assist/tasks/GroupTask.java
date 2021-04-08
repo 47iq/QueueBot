@@ -5,11 +5,23 @@ import data.QueueDBManager;
 import data.UserData;
 import data.UsersDB;
 import data.WaitingPoolDB;
+import exceptions.InvalidRoleException;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+
+import java.util.HashSet;
+import java.util.Set;
 
 public class GroupTask implements Task{
 
     private final UserData userData;
+
+    private static Set<String> roles = new HashSet<>(3);
+
+    static {
+        roles.add("admin");
+        roles.add("student");
+        roles.add("teacher");
+    }
 
     public GroupTask(UserData userData) {
         this.userData = userData;
@@ -17,9 +29,11 @@ public class GroupTask implements Task{
 
     @Override
     public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
-                          TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) {
+                          TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) throws InvalidRoleException {
+        if(!roles.contains(argument))
+            throw new InvalidRoleException();
         userData.setRole(argument);
-        return "Введите, пожалуйста номер вашей группы(или выберите одну из зарегистрированных):";
+        return "Введите, пожалуйста вашу группу(буква перед номером должна быть на латинице):";
     }
 
     @Override

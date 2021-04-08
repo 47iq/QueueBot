@@ -2,14 +2,14 @@ package data;
 
 public class UserDataImpl implements UserData{
     private String role;
-    private int group;
+    private String group;
     private int subGroup;
     private String name;
     private String surname;
     private Subject subject;
     private long chat_id;
 
-    public UserDataImpl(String name, String surname, String role, int group, int subGroup, String subject, long chat_id) {
+    public UserDataImpl(String name, String surname, String role, String group, int subGroup, String subject, long chat_id) {
         this.name = name;
         this.role = role;
         this.group = group;
@@ -29,7 +29,7 @@ public class UserDataImpl implements UserData{
         return role;
     }
 
-    public int getGroup() {
+    public String getGroup() {
         return group;
     }
 
@@ -59,7 +59,7 @@ public class UserDataImpl implements UserData{
     }
 
     @Override
-    public void setGroup(int group) {
+    public void setGroup(String group) {
         this.group = group;
     }
 

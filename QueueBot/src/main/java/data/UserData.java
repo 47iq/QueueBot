@@ -4,7 +4,7 @@ public interface UserData {
 
     String getRole();
 
-    int getGroup();
+    String getGroup();
 
     int getSubGroup();
 
@@ -20,7 +20,7 @@ public interface UserData {
 
     void setSurname(String surname);
 
-    void setGroup(int group);
+    void setGroup(String group);
 
     void setSubGroup(int subGroup);
 

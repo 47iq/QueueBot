@@ -1,6 +1,7 @@
 package commands;
 
 import data.QueueDBManager;
+import exceptions.FatalError;
 import inlinekeyboard.InlineKeyboardCreator;
 import inlinekeyboard.TeacherInlineKeyboardCreator;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -19,7 +20,7 @@ public class SkipCommand implements TeacherCommand{
     }
 
     @Override
-    public SendMessage execute(String username, TelegramLongPollingBot bot) {
+    public SendMessage execute(String username, TelegramLongPollingBot bot) throws FatalError {
         SendMessage sendMessage = new SendMessage();
         InlineKeyboardCreator creator = new TeacherInlineKeyboardCreator();
         try {
@@ -41,8 +42,7 @@ public class SkipCommand implements TeacherCommand{
             return sendMessage;
         } catch (Exception e) {
             e.printStackTrace();
-            sendMessage.setText("Ой. Что-то пошло сильно не так. Напишите пж @true_47iq");
-            return sendMessage;
+            throw new FatalError();
         }
     }
 }

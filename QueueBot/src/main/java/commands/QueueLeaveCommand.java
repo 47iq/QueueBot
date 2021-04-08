@@ -3,6 +3,7 @@ package commands;
 import assist.TaskManager;
 import data.QueueDBManager;
 import data.Subject;
+import exceptions.FatalError;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 
 import java.sql.SQLException;
@@ -16,7 +17,7 @@ public class QueueLeaveCommand implements QueueCommand{
     }
 
     @Override
-    public SendMessage execute(String username, TaskManager taskManager, long chat_id) {
+    public SendMessage execute(String username, TaskManager taskManager, long chat_id) throws FatalError {
         return  taskManager.startLeave(username, chat_id);
     }
 }

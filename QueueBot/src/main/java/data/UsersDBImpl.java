@@ -5,6 +5,7 @@ import assist.Win1251Converter;
 
 import java.sql.*;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class UsersDBImpl implements UsersDB, Win1251Converter {
 
@@ -40,7 +41,7 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
             String name = resultSet.getString(2);
             String surname = resultSet.getString(3);
             String role = resultSet.getString(4);
-            int group = resultSet.getInt(5);
+            String group = resultSet.getString(5);
             int subGroup = resultSet.getInt(6);
             String subject = convert(resultSet.getString(7));
             long chat_id = resultSet.getLong(8);
@@ -52,14 +53,14 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
         //CREATE TYPE role AS ENUM ('admin', 'teacher', 'student');
         String createTableSQL = "CREATE TABLE IF NOT EXISTS users " +
                 "(username TEXT primary key, name TEXT not null, surname TEXT not null, role varchar not null, " +
-                "studyGroup int not null, subGroup int not null, subject varchar, chat_id bigint)";
+                "studyGroup TEXT not null, subGroup int not null, subject varchar, chat_id bigint)";
         PreparedStatement preparedStatement = connection.prepareStatement(createTableSQL);
         preparedStatement.execute();
     }
 
     @Override
     public void register(String username, String name, String surname, String role,
-                         int studyGroup, int subGroup, String subject, long chat_id) throws SQLException {
+                         String studyGroup, int subGroup, String subject, long chat_id) throws SQLException {
         String sql = "INSERT INTO users (username, name, surname, role, studyGroup, subGroup, subject, chat_id) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement preparedStatement = connection.prepareStatement(sql);
@@ -67,7 +68,7 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
         preparedStatement.setString(2, name);
         preparedStatement.setString(3, surname);
         preparedStatement.setString(4, role);
-        preparedStatement.setInt(5, studyGroup);
+        preparedStatement.setString(5, studyGroup);
         preparedStatement.setInt(6, subGroup);
         if (subject != null)
             preparedStatement.setString(7, subject);
@@ -80,7 +81,7 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
         addToCache(username, name, surname, role, studyGroup, subGroup, subject, chat_id);
     }
 
-    private void addToCache(String username, String name, String surname, String role, int studyGroup,
+    private void addToCache(String username, String name, String surname, String role, String studyGroup,
                             int subGroup, String subject, long chat_id) throws SQLException {
         users.put(username, factory.getUsersData(name, surname, role, studyGroup, subGroup, subject, chat_id));
         if (role.equals("admin"))
@@ -106,7 +107,7 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
     }
 
     @Override
-    public Integer getGroup(String username) {
+    public String getGroup(String username) {
         if(users.get(username) == null)
             return null;
         return users.get(username).getGroup();
@@ -119,7 +120,7 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
 
     @Override
     public String getName(String username) {
-        return users.get(username).getName() + " " + users.get(username).getSurname();
+        return users.get(username).getName() + " " + users.get(username).getSurname() + " @" + username;
     }
 
     @Override
@@ -133,7 +134,7 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
     }
 
     @Override
-    public Long getAdminChatId(int group) {
+    public Long getAdminChatId(String group) {
         String username = adminsDB.getAdminUsername(group);
         if (username == null)
             return null;
@@ -152,6 +153,6 @@ public class UsersDBImpl implements UsersDB, Win1251Converter {
 
     @Override
     public List<String> getGroups() {
-        return new ArrayList<>(groups);
+        return groups.stream().map(String::toUpperCase).collect(Collectors.toList());
     }
 }
