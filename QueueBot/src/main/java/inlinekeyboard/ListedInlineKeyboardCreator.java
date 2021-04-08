@@ -8,9 +8,9 @@ import java.util.List;
 
 public class ListedInlineKeyboardCreator implements ListedKeyboardCreator{
 
-    private final int BUTTONS_IN_ROW = 4;
+    private final int BUTTONS_IN_ROW = 2;
 
-    private final int MAX_ROWS = 5;
+    private final int MAX_ROWS = 3;
 
     @Override
     public InlineKeyboardMarkup createInlineKeyBoardMarkUp(List<String> list) {

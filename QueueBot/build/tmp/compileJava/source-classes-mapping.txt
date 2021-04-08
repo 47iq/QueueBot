@@ -38,8 +38,8 @@ commands/TeacherCommand.java
  commands.TeacherCommand
 inlinekeyboard/SubjectInlineKeyBoardCreator.java
  inlinekeyboard.SubjectInlineKeyBoardCreator
-commands/HelpCommand.java
- commands.HelpCommand
+assist/tasks/SubGroupTask.java
+ assist.tasks.SubGroupTask
 inlinekeyboard/KeyboardCreator.java
  inlinekeyboard.KeyboardCreator
 exceptions/InvalidRoleException.java
@@ -64,8 +64,8 @@ data/UserDataImpl.java
  data.UserDataImpl
 commands/QueueRegCommand.java
  commands.QueueRegCommand
-tg_processor/TGMessageProcessorImpl.java
- tg_processor.TGMessageProcessorImpl
+assist/tasks/GroupTask.java
+ assist.tasks.GroupTask
 assist/AlertModuleImpl.java
  assist.AlertModuleImpl
 data/TablesDBManagerImpl.java
@@ -130,8 +130,8 @@ assist/tasks/QueueSubjTask.java
  assist.tasks.QueueSubjTask
 assist/tasks/AccUsernameTask.java
  assist.tasks.AccUsernameTask
-Main.java
- Main
+data/UsersDBImpl.java
+ data.UsersDBImpl
 assist/tasks/LeaveSubjTask.java
  assist.tasks.LeaveSubjTask
 exceptions/InvalidGroupException.java
@@ -144,9 +144,13 @@ assist/tasks/GetQueueTask.java
  assist.tasks.GetQueueTask
 assist/ObjectFactoryImpl.java
  assist.ObjectFactoryImpl
-assist/tasks/SubGroupTask.java
- assist.tasks.SubGroupTask
-data/UsersDBImpl.java
- data.UsersDBImpl
-assist/tasks/GroupTask.java
- assist.tasks.GroupTask
+commands/InfoCommand.java
+ commands.InfoCommand
+tg_processor/TGMessageProcessorImpl.java
+ tg_processor.TGMessageProcessorImpl
+commands/HelpCommand.java
+ commands.HelpCommand
+commands/StartCommand.java
+ commands.StartCommand
+Main.java
+ Main

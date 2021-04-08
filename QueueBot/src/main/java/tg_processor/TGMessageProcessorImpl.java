@@ -66,14 +66,14 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
                         }
                     }
                     case "/start", "/help" -> {
-                        sendMessage = ((HelpCommand) command).execute();
+                        sendMessage = ((InfoCommand) command).execute();
                     }
                     case "/queue", "/leave" -> {
                         if (checkAccess(username))
                             if (!usersDB.isTeacher(username))
                                 sendMessage = ((QueueCommand) command).execute(username, taskManager, chat_id);
                             else {
-                                sendMessage.setText("Вы же препод... Зачем вам записываться в очередь...");
+                                sendMessage.setText("Вы же преподаватель... Зачем вам записываться в очередь...");
                             }
                         else {
                             sendMessage.setText("Вы не зарегистрированы. Возможно, вы еще находитесь в пуле ожидания.");
@@ -89,7 +89,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
                                 try {
                                     sendMessage = ((QueueCommand) command).execute(username, taskManager, chat_id);
                                 } catch (ArrayIndexOutOfBoundsException e) {
-                                    sendMessage.setText("Очередь пустая");
+                                    sendMessage.setText("Очередь пустая.");
                                 }
                             }
                         else {
@@ -100,7 +100,7 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
                         if (usersDB.isAdmin(username))
                             sendMessage = ((AdminCommand) command).execute(username, bot, taskManager, chat_id);
                         else {
-                            sendMessage.setText("Это админская команда.");
+                            sendMessage.setText("Ой.. Кажется вы не являетесь админом ни одной группы. Эта команда только для админов:(");
                         }
                     }
                     case "/reset" -> {

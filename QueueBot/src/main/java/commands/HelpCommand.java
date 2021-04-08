@@ -7,11 +7,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKe
 import java.util.ArrayList;
 import java.util.List;
 
-public class HelpCommand implements Command{
+public class HelpCommand implements InfoCommand{
     public SendMessage execute() {
         SendMessage sendMessage = new SendMessage();
-        String message = "После некоторых команд вам будет предложено ввести аргументы.\n";
-        message += "/register - подать заявку на регистрацию.\n\n";
+        String message = "/register - подать заявку на регистрацию.\n\n";
         message += "Команды для студентов:\n";
         message += "/queue - зарегистрироваться в очередь.\n";
         message += "/leave - покинуть очередь.\n";
