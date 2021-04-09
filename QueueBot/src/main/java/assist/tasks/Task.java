@@ -7,6 +7,7 @@ import data.WaitingPoolDB;
 import exceptions.FatalError;
 import exceptions.InvalidGroupException;
 import exceptions.InvalidRoleException;
+import exceptions.InvalidSubGroupException;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
@@ -15,6 +16,6 @@ import java.sql.SQLException;
 
 public interface Task {
     String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
-                   TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) throws FatalError, InvalidRoleException, InvalidGroupException;
+                   TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) throws FatalError, InvalidRoleException, InvalidGroupException, InvalidSubGroupException;
     Task next();
 }

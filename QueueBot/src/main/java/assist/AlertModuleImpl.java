@@ -33,8 +33,11 @@ public class AlertModuleImpl implements AlertModule, UTF8Converter {
         String group = waitingPoolDB.getGroup(username);
         Long chat_id = usersDB.getAdminChatId(group);
         String text = convert("Привет, там ") + username + convert(" из твоей группы хочет зарегаться. Его данные: ") + waitingPoolDB.getInfo(username);
+        if(chat_id == null) {
+            chat_id = usersDB.getChatId(System.getenv("ADMIN_USERNAME"));
+            text = convert("Привет админ, там ") + username + convert(" из како-то новой группы хочет зарегаться. Его данные: ") + waitingPoolDB.getInfo(username);
+        }
         message.setChatId(String.valueOf(chat_id));
-        //message.setText(convert(text));
         message.setText(text);
         bot.execute(message);
     }

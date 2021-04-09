@@ -8,6 +8,7 @@ import data.WaitingPoolDB;
 import exceptions.FatalError;
 import exceptions.InvalidGroupException;
 import exceptions.InvalidRoleException;
+import exceptions.InvalidSubGroupException;
 import inlinekeyboard.InlineKeyboardCreator;
 import inlinekeyboard.ListedKeyboardCreator;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -72,7 +73,7 @@ public class TaskManagerImpl implements TaskManager {
             else
                 clearTasks(username);
             return message;
-        } catch (InvalidRoleException | InvalidGroupException e) {
+        } catch (InvalidRoleException | InvalidGroupException | InvalidSubGroupException e) {
             message.setText(e.getMessage());
             return message;
         }
@@ -107,7 +108,7 @@ public class TaskManagerImpl implements TaskManager {
             message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB, chat_id, manager));
             taskMap.put(username, task.next());
             return message;
-        } catch (InvalidRoleException | InvalidGroupException ignored) {
+        } catch (InvalidRoleException | InvalidGroupException | InvalidSubGroupException ignored) {
             //UNREACHABLE
             return null;
         }
@@ -151,7 +152,7 @@ public class TaskManagerImpl implements TaskManager {
             message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB, chat_id, manager));
             taskMap.put(username, task.next());
             return message;
-        } catch (InvalidRoleException | InvalidGroupException ignored){
+        } catch (InvalidRoleException | InvalidGroupException | InvalidSubGroupException ignored){
             //UNREACHABLE
             return null;
         }

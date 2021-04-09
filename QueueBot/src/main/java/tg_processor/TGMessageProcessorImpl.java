@@ -48,6 +48,11 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
             username = update.getMessage().getFrom().getUserName();
             chat_id = update.getMessage().getChatId();
         }
+        if(username == null) {
+            sendMessage.setText("Ой... Кажется у вас в telegram не выбран username. \n" +
+                    "Пожалуйста, перейдите в свой профиль и выберите username.\n" +
+                    "Он нужен нам для вашей идентификации. После этого выберите /start для начала работы.");
+        }
         try {
             //todo
             System.out.println(message);

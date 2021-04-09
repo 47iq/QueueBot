@@ -2,8 +2,8 @@ data/Subject.java
  data.Subject
  data.Subject$1
  data.Subject$2
-inlinekeyboard/ListedInlineKeyboardCreator.java
- inlinekeyboard.ListedInlineKeyboardCreator
+commands/StartCommand.java
+ commands.StartCommand
 tg_processor/TGMessageProcessor.java
  tg_processor.TGMessageProcessor
 commands/Command.java
@@ -38,8 +38,8 @@ commands/TeacherCommand.java
  commands.TeacherCommand
 inlinekeyboard/SubjectInlineKeyBoardCreator.java
  inlinekeyboard.SubjectInlineKeyBoardCreator
-assist/tasks/SubGroupTask.java
- assist.tasks.SubGroupTask
+exceptions/InvalidGroupException.java
+ exceptions.InvalidGroupException
 inlinekeyboard/KeyboardCreator.java
  inlinekeyboard.KeyboardCreator
 exceptions/InvalidRoleException.java
@@ -64,10 +64,10 @@ data/UserDataImpl.java
  data.UserDataImpl
 commands/QueueRegCommand.java
  commands.QueueRegCommand
-assist/tasks/GroupTask.java
- assist.tasks.GroupTask
-assist/AlertModuleImpl.java
- assist.AlertModuleImpl
+commands/HelpCommand.java
+ commands.HelpCommand
+assist/tasks/SubjectTask.java
+ assist.tasks.SubjectTask
 data/TablesDBManagerImpl.java
  data.TablesDBManagerImpl
 data/UserData.java
@@ -102,14 +102,20 @@ data/DBManagerImpl.java
  data.DBManagerImpl
 commands/SkipCommand.java
  commands.SkipCommand
-assist/tasks/RejectTask.java
- assist.tasks.RejectTask
-assist/tasks/RoleTask.java
- assist.tasks.RoleTask
+commands/InfoCommand.java
+ commands.InfoCommand
+assist/ObjectFactoryImpl.java
+ assist.ObjectFactoryImpl
 commands/QueueGetCommand.java
  commands.QueueGetCommand
+data/UsersDBImpl.java
+ data.UsersDBImpl
 assist/tasks/GetQueueSubjTask.java
  assist.tasks.GetQueueSubjTask
+inlinekeyboard/ListedInlineKeyboardCreator.java
+ inlinekeyboard.ListedInlineKeyboardCreator
+tg_processor/TGMessageProcessorImpl.java
+ tg_processor.TGMessageProcessorImpl
 assist/tasks/LeaveTask.java
  assist.tasks.LeaveTask
 assist/tasks/SubmitTask.java
@@ -130,27 +136,23 @@ assist/tasks/QueueSubjTask.java
  assist.tasks.QueueSubjTask
 assist/tasks/AccUsernameTask.java
  assist.tasks.AccUsernameTask
-data/UsersDBImpl.java
- data.UsersDBImpl
+assist/tasks/GroupTask.java
+ assist.tasks.GroupTask
 assist/tasks/LeaveSubjTask.java
  assist.tasks.LeaveSubjTask
-exceptions/InvalidGroupException.java
- exceptions.InvalidGroupException
-assist/tasks/SubjectTask.java
- assist.tasks.SubjectTask
+exceptions/InvalidSubGroupException.java
+ exceptions.InvalidSubGroupException
+assist/tasks/SubGroupTask.java
+ assist.tasks.SubGroupTask
 assist/TaskManagerImpl.java
  assist.TaskManagerImpl
 assist/tasks/GetQueueTask.java
  assist.tasks.GetQueueTask
-assist/ObjectFactoryImpl.java
- assist.ObjectFactoryImpl
-commands/InfoCommand.java
- commands.InfoCommand
-tg_processor/TGMessageProcessorImpl.java
- tg_processor.TGMessageProcessorImpl
-commands/HelpCommand.java
- commands.HelpCommand
-commands/StartCommand.java
- commands.StartCommand
+assist/tasks/RejectTask.java
+ assist.tasks.RejectTask
+assist/tasks/RoleTask.java
+ assist.tasks.RoleTask
 Main.java
  Main
+assist/AlertModuleImpl.java
+ assist.AlertModuleImpl
