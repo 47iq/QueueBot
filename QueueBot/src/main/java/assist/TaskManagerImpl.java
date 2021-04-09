@@ -10,6 +10,7 @@ import exceptions.InvalidGroupException;
 import exceptions.InvalidRoleException;
 import exceptions.InvalidSubGroupException;
 import inlinekeyboard.InlineKeyboardCreator;
+import inlinekeyboard.KeyboardCreator;
 import inlinekeyboard.ListedKeyboardCreator;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -35,11 +36,13 @@ public class TaskManagerImpl implements TaskManager {
 
     private final ListedKeyboardCreator listCreator;
 
+    private final KeyboardCreator keyboardCreator;
+
     private final QueueDBManager manager;
 
     public TaskManagerImpl(WaitingPoolDB waitingPoolDB, AlertModule alertModule, UsersDB usersDB, InlineKeyboardCreator roleCreator,
                            InlineKeyboardCreator subGroupCreator, InlineKeyboardCreator subjectCreator,
-                           ListedKeyboardCreator listCreator, QueueDBManager queueDBManager) {
+                           ListedKeyboardCreator listCreator, QueueDBManager queueDBManager, KeyboardCreator keyboardCreator) {
         this.waitingPoolDB = waitingPoolDB;
         this.alertModule = alertModule;
         this.usersDB = usersDB;
@@ -48,6 +51,7 @@ public class TaskManagerImpl implements TaskManager {
         this.subGroupCreator = subGroupCreator;
         this.listCreator = listCreator;
         this.manager = queueDBManager;
+        this.keyboardCreator = keyboardCreator;
     }
 
     @Override
@@ -67,7 +71,7 @@ public class TaskManagerImpl implements TaskManager {
             Task task = taskMap.get(username);
             String ans = task.execute(username, arg, waitingPoolDB, alertModule, bot, usersDB, chat_id, manager);
             message.setText(ans);
-            addKeyBoard(message, task);
+            addKeyBoard(message, task, username);
             if(task.next() != null)
                 taskMap.put(username, task.next());
             else
@@ -79,7 +83,7 @@ public class TaskManagerImpl implements TaskManager {
         }
     }
 
-    private void addKeyBoard(SendMessage message, Task task) {
+    private void addKeyBoard(SendMessage message, Task task, String username) {
         switch (task.toString()) {
             case "subgroup" -> {
                 message.setReplyMarkup(subGroupCreator.createInlineKeyBoardMarkUp());
@@ -95,6 +99,9 @@ public class TaskManagerImpl implements TaskManager {
             }
             case "accusername", "rejectusername" -> {
                 message.setReplyMarkup(listCreator.createInlineKeyBoardMarkUp(waitingPoolDB.getUsers()));
+            }
+            case "getqueue", "leave", "queue", "accept", "reject" -> {
+                message.setReplyMarkup(keyboardCreator.getInlineKeyboardMarkup(username));
             }
         }
     }
@@ -148,7 +155,7 @@ public class TaskManagerImpl implements TaskManager {
         try {
             SendMessage message = new SendMessage();
             Task task = taskMap.get(username);
-            addKeyBoard(message, task);
+            addKeyBoard(message, task, username);
             message.setText(task.execute(username, "", waitingPoolDB, alertModule, null, usersDB, chat_id, manager));
             taskMap.put(username, task.next());
             return message;

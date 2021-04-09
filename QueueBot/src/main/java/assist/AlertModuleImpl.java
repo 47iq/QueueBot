@@ -22,7 +22,7 @@ public class AlertModuleImpl implements AlertModule, UTF8Converter {
 
     @Override
     public void alertRegisterAdmin(String username, TelegramLongPollingBot bot) throws TelegramApiException, UnsupportedEncodingException {
-        String text = "Привет, там " + username + " хочет зарегаться. Его данные: " + waitingPoolDB.getInfo(username);
+        String text = convert("Привет, там 0") + username + convert(" хочет зарегаться. Его данные: ") + waitingPoolDB.getInfo(username);
         SendMessage message = getMessage(System.getenv("ADMIN_USERNAME"), text);
         bot.execute(message);
     }
@@ -32,10 +32,10 @@ public class AlertModuleImpl implements AlertModule, UTF8Converter {
         SendMessage message = new SendMessage();
         String group = waitingPoolDB.getGroup(username);
         Long chat_id = usersDB.getAdminChatId(group);
-        String text = convert("Привет, там ") + username + convert(" из твоей группы хочет зарегаться. Его данные: ") + waitingPoolDB.getInfo(username);
+        String text = convert("Привет, там @") + username + convert(" из твоей группы хочет зарегаться. Его данные: ") + waitingPoolDB.getInfo(username);
         if(chat_id == null) {
             chat_id = usersDB.getChatId(System.getenv("ADMIN_USERNAME"));
-            text = convert("Привет админ, там ") + username + convert(" из како-то новой группы хочет зарегаться. Его данные: ") + waitingPoolDB.getInfo(username);
+            text = convert("Привет админ, там @") + username + convert(" из како-то новой группы хочет зарегаться. Его данные: ") + waitingPoolDB.getInfo(username);
         }
         message.setChatId(String.valueOf(chat_id));
         message.setText(text);
@@ -75,7 +75,7 @@ public class AlertModuleImpl implements AlertModule, UTF8Converter {
         bot.execute(message);
     }
 
-    private SendMessage getMessage(String username, String text) throws UnsupportedEncodingException {
+    private SendMessage getMessage(String username, String text) {
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(usersDB.getChatId(username)));
         message.setText(convert(text));

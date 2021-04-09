@@ -30,12 +30,13 @@ public class Main {
             manager.start(DB_URL, USER, PASS);
             alertModule = new AlertModuleImpl(manager.getUsersDB(), manager.getWaitingPool());
             manager.getQueueDB().setAlertModule(alertModule);
+            KeyboardCreator keyboardCreator = new KeyboardCreatorImpl(manager.getUsersDB());
             TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
             TaskManager taskManager = new TaskManagerImpl(manager.getWaitingPool(), alertModule, manager.getUsersDB(),
                     new RoleInlineKeyboardCreator(), new SubGroupInlineKeyboardCreator(), new SubjectInlineKeyBoardCreator(),
-                    new ListedInlineKeyboardCreator(), manager.getQueueDB());
+                    new ListedInlineKeyboardCreator(), manager.getQueueDB(), keyboardCreator);
             telegramBotsApi.registerBot(new QueueBot(new TGMessageProcessorImpl(getCommands(),
-                    manager.getUsersDB(), taskManager, new KeyboardCreatorImpl(manager.getUsersDB()))));
+                    manager.getUsersDB(), taskManager, keyboardCreator)));
         } catch (Exception e) {
             e.printStackTrace();
         }

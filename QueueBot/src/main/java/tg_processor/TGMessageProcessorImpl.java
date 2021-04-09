@@ -51,7 +51,8 @@ public class TGMessageProcessorImpl implements TGMessageProcessor, UTF8Converter
         if(username == null) {
             sendMessage.setText("Ой... Кажется у вас в telegram не выбран username. \n" +
                     "Пожалуйста, перейдите в свой профиль и выберите username.\n" +
-                    "Он нужен нам для вашей идентификации. После этого выберите /start для начала работы.");
+                    "Он нужен нам для вашей идентификации(имхо проще один раз поставить, чем каждый раз вводить логин и пароль в боте).\n После этого выберите /start для начала работы.");
+            send(sendMessage, chat_id, bot);
         }
         try {
             //todo

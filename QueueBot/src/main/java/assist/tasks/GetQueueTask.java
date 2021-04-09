@@ -6,7 +6,11 @@ import data.Subject;
 import data.UsersDB;
 import data.WaitingPoolDB;
 import exceptions.FatalError;
+import inlinekeyboard.InlineKeyboardCreator;
+import inlinekeyboard.KeyboardCreator;
+import inlinekeyboard.KeyboardCreatorImpl;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
 
 import java.nio.ByteBuffer;
 import java.nio.charset.Charset;
@@ -17,6 +21,8 @@ import java.util.List;
 public class GetQueueTask implements Task{
 
     private String subject;
+
+
 
     public GetQueueTask(String subject) {
         this.subject = subject;
@@ -33,7 +39,10 @@ public class GetQueueTask implements Task{
                 return "Очередь пуста.";
             String result = list.stream().map(usersDB::getName).reduce((x, y)->(x + "\n" + y)).get();
             Charset charset = Charset.forName("windows-1251");
-            return charset.decode(ByteBuffer.wrap(result.getBytes(StandardCharsets.UTF_8))).toString();
+            String chars =  charset.decode(ByteBuffer.wrap(result.getBytes(StandardCharsets.UTF_8))).toString();
+            String letterI = "I";
+            chars = chars.replace("И", letterI);
+            return chars;
         } catch (Exception e) {
             e.printStackTrace();
             throw new FatalError();

@@ -4,7 +4,7 @@ import assist.UTF8Converter;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
-public class QueueBot extends TelegramLongPollingBot implements UTF8Converter {
+public class QueueBot extends TelegramLongPollingBot {
 
     private final TGMessageProcessor tgMessageProcessor;
 
