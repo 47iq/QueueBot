@@ -13,17 +13,21 @@ import java.util.Map;
 
 public class Main {
 
-    private static final String DB_URL = "jdbc:postgresql://localhost/queues";
-
-    private static final String USER = System.getenv("LOGIN");
-
-    private static final String PASS = System.getenv("PASSWORD");
-
     private static DBManager manager;
 
     private static AlertModule alertModule;
 
     public static void main(String[] args) {
+        String DB_URL = null, USER = null, PASS = null, BOT_KEY = null;
+        try {
+            DB_URL = args[0];
+            USER = args[1];
+            PASS = args[2];
+            BOT_KEY = args[3];
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.exit(1);
+        }
         try {
             ObjectFactory factory = new ObjectFactoryImpl();
             manager = new DBManagerImpl(factory);
@@ -36,7 +40,7 @@ public class Main {
                     new RoleInlineKeyboardCreator(), new SubGroupInlineKeyboardCreator(), new SubjectInlineKeyBoardCreator(),
                     new ListedInlineKeyboardCreator(), manager.getQueueDB(), keyboardCreator);
             telegramBotsApi.registerBot(new QueueBot(new TGMessageProcessorImpl(getCommands(),
-                    manager.getUsersDB(), taskManager, keyboardCreator)));
+                    manager.getUsersDB(), taskManager, keyboardCreator), BOT_KEY));
         } catch (Exception e) {
             e.printStackTrace();
         }

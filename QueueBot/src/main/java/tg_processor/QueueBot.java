@@ -8,8 +8,11 @@ public class QueueBot extends TelegramLongPollingBot {
 
     private final TGMessageProcessor tgMessageProcessor;
 
-    public QueueBot(TGMessageProcessor tgMessageProcessor) {
+    private final String key;
+
+    public QueueBot(TGMessageProcessor tgMessageProcessor, String key) {
         this.tgMessageProcessor = tgMessageProcessor;
+        this.key = key;
     }
 
     @Override
@@ -19,7 +22,7 @@ public class QueueBot extends TelegramLongPollingBot {
 
     @Override
     public String getBotToken() {
-        return System.getenv("BOT_TOKEN");
+        return key;
     }
 
     @Override
