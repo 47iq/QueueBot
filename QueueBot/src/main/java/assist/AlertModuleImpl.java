@@ -69,10 +69,11 @@ public class AlertModuleImpl implements AlertModule, UTF8Converter {
     }
 
     @Override
-    public void alertRejectUser(String username, TelegramLongPollingBot bot) throws UnsupportedEncodingException, TelegramApiException {
+    public void alertRejectUser(String username, TelegramLongPollingBot bot) throws TelegramApiException {
         String text = "К сожалению ваша заявка отклонена. Проверьте данные и попробуйте еще раз.";
-        //12
-        SendMessage message = getMessage(username, text);
+        SendMessage message = new SendMessage();
+        message.setChatId(String.valueOf(waitingPoolDB.getChatId(username)));
+        message.setText(convert(text));
         bot.execute(message);
     }
 

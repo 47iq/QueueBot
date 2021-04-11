@@ -32,7 +32,6 @@ public class QueueDBManagerImpl implements QueueDBManager{
 
     @Override
     public void add(String username, Subject subject) throws SQLException {
-
         String group = usersDB.getGroup(username);
         int subGroup = usersDB.getSubGroup(username);
         String tableName = getTableName(username, subject);

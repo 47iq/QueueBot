@@ -27,6 +27,7 @@ public class QueueTask implements Task{
             manager.add(username, Subject.forName(subject));
             return ("Вы успешно записались в очередь. Посмотреть ее можно командой /getqueue");
         } catch (SQLException e) {
+            e.printStackTrace();
             return ("Ой. Что-то пошло не так. Возможно, вы уже записаны в очередь.");
         } catch (IllegalArgumentException e) {
             return ("Вашего предмета нет в списке. Он должен быть одним из: {OPD, Programming}.");

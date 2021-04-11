@@ -25,6 +25,7 @@ public class RejectTask implements Task{
             alertModule.alertRejectUser(argument, bot);
             return "F челу";
         } catch (Exception e) {
+            e.printStackTrace();
             throw new FatalError();
         }
     }

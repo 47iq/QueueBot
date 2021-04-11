@@ -28,6 +28,7 @@ public class SubmitTask implements Task{
             alertModule.alertRegisterAdmin(username, bot, usersDB.getAdminChatId(userData.getGroup()));
             return "Запрос передан на модерацию.";
         } catch (SQLException e) {
+            e.printStackTrace();
             return "Что-то пошло не так. Возможно, вы уже подали заявку и находитесь в пуле ожидания";
         } catch (Exception e) {
             e.printStackTrace();

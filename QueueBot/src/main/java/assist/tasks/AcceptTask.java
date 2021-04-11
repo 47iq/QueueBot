@@ -32,6 +32,7 @@ public class AcceptTask implements Task{
             alertModule.alertRegisterUser(argument, bot);
             return "Все ок, зарегал";
         } catch (SQLException e) {
+            e.printStackTrace();
             return "Что-то пошло не так. Возможно, пользователь уже зарегистрирован.";
         } catch (Exception e) {
             e.printStackTrace();
