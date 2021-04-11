@@ -1,5 +1,5 @@
-assist/tasks/SubjectTask.java
- assist.tasks.SubjectTask
+assist/tasks/GetQueueSubjTask.java
+ assist.tasks.GetQueueSubjTask
 commands/AcceptCommand.java
  commands.AcceptCommand
 commands/BeginCommand.java
@@ -38,8 +38,8 @@ assist/tasks/LeaveSubjTask.java
  assist.tasks.LeaveSubjTask
 data/UsersDB.java
  data.UsersDB
-tg_processor/TGMessageProcessor.java
- tg_processor.TGMessageProcessor
+assist/tasks/GetQueueTask.java
+ assist.tasks.GetQueueTask
 assist/tasks/RejectTask.java
  assist.tasks.RejectTask
 data/UsersDBImpl.java
@@ -58,16 +58,16 @@ inlinekeyboard/ListedInlineKeyboardCreator.java
  inlinekeyboard.ListedInlineKeyboardCreator
 assist/ObjectFactoryImpl.java
  assist.ObjectFactoryImpl
-assist/TaskManagerImpl.java
- assist.TaskManagerImpl
+assist/AlertModuleImpl.java
+ assist.AlertModuleImpl
 data/DBManagerImpl.java
  data.DBManagerImpl
 data/WaitingPoolDBImpl.java
  data.WaitingPoolDBImpl
 assist/tasks/RejectUsernameTask.java
  assist.tasks.RejectUsernameTask
-assist/tasks/GetQueueTask.java
- assist.tasks.GetQueueTask
+tg_processor/QueueBot.java
+ tg_processor.QueueBot
 assist/UTF8Converter.java
  assist.UTF8Converter
 commands/Command.java
@@ -106,8 +106,8 @@ assist/tasks/AccUsernameTask.java
  assist.tasks.AccUsernameTask
 commands/StartCommand.java
  commands.StartCommand
-data/TablesDBManagerImpl.java
- data.TablesDBManagerImpl
+Main.java
+ Main
 inlinekeyboard/ListedKeyboardCreator.java
  inlinekeyboard.ListedKeyboardCreator
 commands/HelpCommand.java
@@ -148,11 +148,11 @@ commands/RejectCommand.java
  commands.RejectCommand
 exceptions/FatalError.java
  exceptions.FatalError
-assist/tasks/GetQueueSubjTask.java
- assist.tasks.GetQueueSubjTask
-Main.java
- Main
-assist/AlertModuleImpl.java
- assist.AlertModuleImpl
-tg_processor/QueueBot.java
- tg_processor.QueueBot
+data/TablesDBManagerImpl.java
+ data.TablesDBManagerImpl
+assist/TaskManagerImpl.java
+ assist.TaskManagerImpl
+tg_processor/TGMessageProcessor.java
+ tg_processor.TGMessageProcessor
+assist/tasks/SubjectTask.java
+ assist.tasks.SubjectTask

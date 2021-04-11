@@ -21,8 +21,8 @@ public class RejectTask implements Task{
     public String execute(String username, String argument, WaitingPoolDB waitingPoolDB, AlertModule alertModule,
                           TelegramLongPollingBot bot, UsersDB usersDB, long chat_id, QueueDBManager manager) throws FatalError {
         try {
-            waitingPoolDB.delete(argument);
             alertModule.alertRejectUser(argument, bot);
+            waitingPoolDB.delete(argument);
             return "F челу";
         } catch (Exception e) {
             e.printStackTrace();
